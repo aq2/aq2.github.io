@@ -7,6 +7,14 @@ let rawData,
  
 
 function processFile(data) {               // eslint-disable-line
+  // show example data table
+  select('#critBox')
+    .style('opacity', '1')
+
+  select('#exTableDiv')
+    .position(20, 180)
+    .show()
+
   rawData = data
 
   // make html for table and stick it in    
@@ -17,18 +25,13 @@ function processFile(data) {               // eslint-disable-line
 
   select('#measRow')
     .addClass('light')   
-  
-  createButton('OK')
-    .parent(select('#catBtnPos'))
-    .mousePressed(getRankables)
-
-  // control now passed to getrankables()
+ 
+  makeOKButton('#catBtnPos', getRankables)
 }
 
 
 // make example table, inc select rankables
 function makeExampleTableHtml(data) {
-
   let c,                    // looper 
       val,                  // looper value
       myHtml = "<tr><th>criteria:</th>",   // string of html
@@ -41,7 +44,6 @@ function makeExampleTableHtml(data) {
   // todo check for headers at ex[0]
   categories = exampleData[0].split(',')
   catData.cats = categories
-  // console.log('mex ' + categories)
   candidates.push(exampleData[1].split(','), exampleData[2].split(','))
 
   // build up HTML for table
@@ -57,7 +59,6 @@ function makeExampleTableHtml(data) {
     myHtml += '<tr class="cand"><td>example data</td>'
     for (val of c) {
       if (isNaN(Number(val))) {
-        // it's propably alpha
         alphaField = i
       }
       myHtml += '<td>' + val + '</td>'
@@ -131,9 +132,7 @@ function getMaxis() {
   select('#outputCell')
     .html('default is lower values are better')
 
-  createButton('OK')
-    .parent(select('#minmaxBtnPos'))
-    .mousePressed(getID)
+  makeOKButton('#minmaxBtnPos', getID)
 }
 
 
@@ -164,14 +163,13 @@ function getID() {
     .html(html)
 
   // check alphafield radio button - choose alpha by default
+  // todo yuck
   document.getElementsByName("iD")[alphaField].checked = true
   
   select('#outputCell')
     .html('choose a category to use as identifier - eg name')
 
-  createButton('OK')
-    .parent(select('#idBtnPos'))
-    .mousePressed(makeData)
+  makeOKButton('#idBtnPos', makeData)
 }
 
 
@@ -245,10 +243,11 @@ function getViz() {
 function pareto() {
   console.log('pareto')
   console.log(catData.categories)
-  // select('#exTableDiv')
-  //   .style('opacity', 1)
 }
 
 function parallel() {
   console.log('parallel')  
 }
+
+
+

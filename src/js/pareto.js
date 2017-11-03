@@ -202,16 +202,7 @@ function compareUnis(uni1, uni2, rankables) {
 }
 
 
-// pinched from interwebs
-function deepClone(o) {
-   var output, v, key
-   output = Array.isArray(o) ? [] : {}
-   for (key in o) {
-       v = o[key]
-       output[key] = (typeof v === "object") ? deepClone(v) : v
-   }
-   return output
-}
+
 
 
 function shortCut() {
