@@ -36,6 +36,7 @@ function buildParetoGraphic(cands) {
 
 }
 
+let myB
 
 function drawGraphic(cands, fronts) {
   let cWidth = windowWidth-50,
@@ -89,12 +90,18 @@ function drawGraphic(cands, fronts) {
       // let myEl = createDiv(c)
                   // .position(nodeWidth*i, y-nodeHeight/2) 
 
-      let myR = rect(nodeWidth*i, y-nodeHeight/2, nodeW, nodeH)
+      myB = createButton(c)
+                  .position(35+nodeWidth*i, y-nodeHeight/2 + 150)
+                  .value(c)
+                  // .mouseOver(showInfo)
+                  .mousePressed(showInfo)
       
-      // myR.mouseOver(showInfo)
-      
-      text(c, 5 + nodeWidth * i , y - nodeHeight/2 + nodeH/2 )
 
+
+      // let v = myB.elt.v
+      // console.table('v ' + v)
+
+      text(c, 5 + nodeWidth * i , y - nodeHeight/2 + nodeH/2 )
 
       i++
     }
@@ -103,8 +110,16 @@ function drawGraphic(cands, fronts) {
 
 }
 
-function showInfo(x) {
-  console.log('show Info' + x)
+function showInfo(evt) {
+  // console.log('info ' + evt)
+  // console.table(evt)
+  let candidateKey = evt.srcElement.value
+  // let candidate = name of candidate with that key
+  let uni = candidates[candidateKey]
+  let uniname = uni.name
+
+  console.log('name of ' + candidateKey + ' is ' + uniname)
+
 }
 
 

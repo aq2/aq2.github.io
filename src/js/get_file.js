@@ -23,7 +23,14 @@ function setup() {    // eslint-disable-line
     createButton('shortcut to pareto using saved Data')
     .position(400, 30)
     .mousePressed(shortCut)
+    // .mouseOver(foo)
 
+    // createButton('download data')
+    // .position(400, 30)
+    // .mousePressed(shortCut)
+
+    createA('../data/gug2009.csv', 'download data')
+      .position(400, 55)
 
   } else {
     console.log('no data')
@@ -38,6 +45,9 @@ function setup() {    // eslint-disable-line
     
 }
 
+function foo() {
+  console.log('foo')
+}
 
 function highlight(evt) {
   this.style('filter', 'brightness(1.15)')
