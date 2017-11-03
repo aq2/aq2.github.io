@@ -10,7 +10,8 @@ function preload() {   // eslint-disable-line
 
 
 function setup() {    // eslint-disable-line
-  if (localStorage.getItem('myData')) {
+  
+if (localStorage.getItem('myData')) {
     // console.log('data found')
     savedString = restoreData()
     savedData = []
@@ -23,18 +24,11 @@ function setup() {    // eslint-disable-line
     createButton('shortcut to pareto using saved Data')
     .position(400, 30)
     .mousePressed(shortCut)
-    // .mouseOver(foo)
-
-    // createButton('download data')
-    // .position(400, 30)
-    // .mousePressed(shortCut)
-
-    createA('../data/gug2009.csv', 'download data')
-      .position(400, 55)
 
   } else {
     console.log('no data')
   }
+  
   // setup dropzone
   select('#dz')
     .drop(gotFile)
@@ -99,6 +93,10 @@ function gotFile(file) {
   processFile(file.data)            // eslint-disable-line
 }
 
+
+
+// need to saveall - data.  time for mega global object?
+// 
 function saveData(data) {
   localStorage.setItem('myData', JSON.stringify(data));
 }

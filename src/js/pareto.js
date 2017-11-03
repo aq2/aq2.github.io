@@ -216,6 +216,19 @@ function deepClone(o) {
 
 function shortCut() {
   console.log('shortie pressed')
+  
+  let savedString = restoreData(),
+      savedData = []
+    
+  for (let s of savedString) {
+    savedData.push(s)
+  }
+
+  console.group()
+    console.log('data restored:' + savedData)
+    console.table(savedData)
+  console.groupEnd()
+
   buildParetoGraphic(savedData)
 }
 
