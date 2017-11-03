@@ -1,5 +1,8 @@
 // start point for the app
 
+let savedData,
+    nFronts
+
 function preload() {   // eslint-disable-line
   select('#exTableDiv')
     .hide()
@@ -7,11 +10,32 @@ function preload() {   // eslint-disable-line
 
 
 function setup() {    // eslint-disable-line
+  if (localStorage.getItem('myData')) {
+    // console.log('data found')
+    savedString = restoreData()
+    savedData = []
+    for (let s of savedString) {
+      savedData.push(s)
+    }
+    // console.log('data retrieved...')
+    // console.table(savedData)
+    
+    createButton('shortcut to pareto using saved Data')
+    .position(400, 30)
+    .mousePressed(shortCut)
+
+
+  } else {
+    console.log('no data')
+  }
   // setup dropzone
   select('#dz')
     .drop(gotFile)
     .dragOver(highlight)
     .dragLeave(unhighlight)
+
+
+    
 }
 
 
@@ -65,3 +89,10 @@ function gotFile(file) {
   processFile(file.data)            // eslint-disable-line
 }
 
+function saveData(data) {
+  localStorage.setItem('myData', JSON.stringify(data));
+}
+
+function restoreData() {
+  return JSON.parse(localStorage.getItem('myData'))
+}

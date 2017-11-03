@@ -2,6 +2,7 @@
 
 let rawData,
     alphaField = -1,
+    candidates = [],
     catData = {cats: [], rankables: [], maxis: [], idCat: -1, iDn: ''}
  
 
@@ -36,8 +37,11 @@ function makeExampleTableHtml(data) {
       exampleData = data.split('\n', 3)
 
   // get first three rows
+  // console.log(exampleData[0])
+  // todo check for headers at ex[0]
   categories = exampleData[0].split(',')
   catData.cats = categories
+  // console.log('mex ' + categories)
   candidates.push(exampleData[1].split(','), exampleData[2].split(','))
 
   // build up HTML for table
@@ -65,7 +69,7 @@ function makeExampleTableHtml(data) {
   // show rankables row
   myHtml += '<tr id="measRow"><td>select rankable criteria</td>'
   for (c in categories) {
-    myHtml += "<td><input type='checkbox' id='cat" + c + "'>"
+    myHtml += "<td><input type='checkbox' checked id='cat" + c + "'>"
   }
   myHtml += "<td id='catBtnPos'></td></tr>"
 
@@ -179,7 +183,7 @@ function makeData() {
       rawCand,
       propname,
       candidate = {},
-      candidates = [],
+      // candidates = [],
       someData = rawData.split('\n'),
       len = someData.length,
       the1 = document.querySelector('input[name="iD"]:checked').value
@@ -211,7 +215,8 @@ function makeData() {
     }
     candidates.push(candidate)
   }
-  console.table(candidates)
+  // console.log('makeData: ')
+  // console.table(candidates)
 
   // rollup table
   select('#exTableDiv')
@@ -239,6 +244,7 @@ function getViz() {
 
 function pareto() {
   console.log('pareto')
+  console.log(catData.categories)
   // select('#exTableDiv')
   //   .style('opacity', 1)
 }

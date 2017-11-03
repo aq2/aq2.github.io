@@ -5,7 +5,9 @@
   "main": "app.js",
   "author": "angelo",
   "license": "MIT",
-  "dependencies": {},
+  "dependencies": {
+    "yarn": "^1.2.1"
+  },
   "devDependencies": {
     "browser-sync": "^2.18.13",
     "eslint": "^4.3.0",
@@ -29,7 +31,6 @@
       "p5js",
       "p5js/dom"
     ],
-    
     "globals": {
       "d3": true
     },
