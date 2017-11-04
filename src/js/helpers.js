@@ -15,9 +15,33 @@ function saveData(data) {
   localStorage.setItem('myData', JSON.stringify(data));
 }
 
-function restoreData() {
+function loadData() {
   return JSON.parse(localStorage.getItem('myData'))
 }
+
+
+function restoreData(data) {
+  let savedObject = {}
+  let savedProps = []
+
+  for (let s in data) {
+    savedProps.push(s)
+  }
+
+  for (let property of savedProps) {
+    let x = data[property]
+    // console.log('x ' + x)
+    savedObject[property] = data[property]
+  }
+ 
+  // console.log('retrieved...props')
+  // console.log(savedObject)
+  return savedObject
+}
+
+
+
+
 
 // pinched from interwebs
 function deepClone(o) {

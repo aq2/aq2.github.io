@@ -1,52 +1,20 @@
 // process CSV data into more usable form
 
-let rawData,
-    alphaField = -1,
-    candidates = [],
-    catData = {cats: [], rankables: [], maxis: [], idCat: -1, iDn: ''}
- 
-
-function processFile(data) {               // eslint-disable-line
-  // show example data table
-  select('#critBox')
-    .style('opacity', '1')
-
-  select('#exTableDiv')
-    .position(20, 180)
-    .show()
-
-  rawData = data
-
-  // make html for table and stick it in    
-  let tableHtml = makeExampleTableHtml(data)  
-  
-  select('#exTable')
-    .html(tableHtml)
-
-  select('#measRow')
-    .addClass('light')   
- 
-  makeOKButton('#catBtnPos', getRankables)
-}
-
+/*global G_D*/
 
 // make example table, inc select rankables
 function makeExampleTableHtml(data) {
-  let c,                    // looper 
-      val,                  // looper value
-      myHtml = "<tr><th>criteria:</th>",   // string of html
-      candidates = [],      // array containing two example candidates
-      categories = [],      // array of category names
-      exampleData = data.split('\n', 3)
+  let c,                                      // looping object
+      val,                                    // looper value
+      myHtml = "<tr><th>criteria:</th>",      // initial string of table html
+      exampleData = data.split('\n', 3),      // first 3 lines of data file
+      // todo check for headers at ex[0]
+      categories = exampleData[0].split(','), // first line
+      // add second and third rows for examples
+      exCandidates = [exampleData[1].split(','), exampleData[2].split(',')]
+      
+  G_D.catData = {cats: categories, rankables: [], maxis: [], idCat: -1, iDn: ''}
 
-  // get first three rows
-  // console.log(exampleData[0])
-  // todo check for headers at ex[0]
-  categories = exampleData[0].split(',')
-  catData.cats = categories
-  candidates.push(exampleData[1].split(','), exampleData[2].split(','))
-
-  // build up HTML for table
   // show each category
   for (c of categories) {
     myHtml += '<th>' + c + '</th>'
@@ -54,12 +22,12 @@ function makeExampleTableHtml(data) {
   myHtml += '<th></th></tr>'
 
   // show two example candidates
-  let i = 0  // yuck!
-  for (c of candidates) {    
+  let i = 0  // todo yuck!
+  for (c of exCandidates) {    
     myHtml += '<tr class="cand"><td>example data</td>'
     for (val of c) {
       if (isNaN(Number(val))) {
-        alphaField = i
+        G_D.alphaField = i
       }
       myHtml += '<td>' + val + '</td>'
     }
@@ -89,17 +57,17 @@ function makeExampleTableHtml(data) {
 // rankables click handler
 function getRankables() {
   let i = 0,
-      catLength = catData.cats.length
+      catLength = G_D.catData.cats.length
   
   // check each checkbox, add to rankables[] if checked
   for (i; i<catLength; i++) {
     if (select('#cat' + i).checked()) {
-      catData.rankables.push(i)
+      G_D.catData.rankables.push(i)
     } 
   }
   
   // if at least two rankables
-  if (catData.rankables.length < 2) {
+  if (G_D.catData.rankables.length < 2) {
     // todo error message, wobble button?? 
     return false
   }
@@ -112,13 +80,13 @@ function getRankables() {
 
 function getMaxis() {
   let i = 0,
-      length = catData.cats.length,
+      length = G_D.catData.cats.length,
       html = '<td>high value is better</td>'
 
   // for each measurable, add checkbox
   for (i; i<length; i++) {
     html += "<td>"
-    if (catData.rankables.indexOf(i) != -1) {
+    if (G_D.catData.rankables.indexOf(i) != -1) {
       html += "<input type='checkbox' id='max" + i + "'>"
     } 
     html += "</td>"
@@ -129,8 +97,7 @@ function getMaxis() {
     .html(html)
     .class('light')
 
-  select('#outputCell')
-    .html('default is lower values are better')
+  select('#outputCell').html('default is lower values are better')
 
   makeOKButton('#minmaxBtnPos', getID)
 }
@@ -138,58 +105,63 @@ function getMaxis() {
 
 function getID() {
   let i = 0,
-      length = catData.cats.length,
+      length = G_D.catData.cats.length,
       html = "<td>select one id field</td>"
 
-  select('#minmaxRow')
-    .class('dark')
+  select('#minmaxRow').class('dark')
 
-  select('#idRow')
-    .class('light')
+  select('#idRow').class('light')
 
   // for each category max checkbox, add to maxis[] if checked, and build iD row
   for (i; i<length; i++) {
     html += "<td><input type='radio' name='iD' value='" + i + "' id=radio" + i + "></td>"
-    if (catData.rankables.indexOf(i) != -1) {
+    if (G_D.catData.rankables.indexOf(i) != -1) {
       if (select('#max' + i).checked()) {
-        catData.maxis.push(i)
+        G_D.catData.maxis.push(i)
       } 
     }
   }
 
   html += "<td id='idBtnPos'></td></tr>"
 
-  select('#idRow')
-    .html(html)
+  select('#idRow').html(html)
 
   // check alphafield radio button - choose alpha by default
   // todo yuck
-  document.getElementsByName("iD")[alphaField].checked = true
+  document.getElementsByName("iD")[G_D.alphaField].checked = true
   
   select('#outputCell')
     .html('choose a category to use as identifier - eg name')
 
-  makeOKButton('#idBtnPos', makeData)
+  // makeOKButton('#idBtnPos', makeData2(1,2))
+  makeOKButton('#idBtnPos', makeData) // !!
+}
+
+
+// @@ powerful pattern - pass parameters to cllbacks!
+function makeData2(x,y) {
+  return function() {
+    console.log(x,y)
+  }
 }
 
 
 function makeData() {
-  let i = 1,
-      j = 0,
-      numb,
+  let numb,
       prop,
+      i = 1,
+      j = 0,
       rawCand,
       propname,
       candidate = {},
-      // candidates = [],
-      someData = rawData.split('\n'),
+      someData = G_D.rawData.split('\n'),
       len = someData.length,
       the1 = document.querySelector('input[name="iD"]:checked').value
   
-  catData.idCat = the1
-  catData.iDn = catData.cats[the1]
+  G_D.catData.idCat = the1
+  G_D.catData.iDn = G_D.catData.cats[the1]
 
-  // now make data table - rawData is still one big string
+  // now make data table - someData is still one raw big string
 
   // todo fugly hacky loops going on in here
   // for each rawCandidate, change into formatted candidate
@@ -199,22 +171,29 @@ function makeData() {
     rawCand = someData[i].split(',')
     
     for (prop of rawCand) {
-      propname = catData.cats[j]
+      propname = G_D.catData.cats[j]
      
       // if prop value is alpha, trim it, else just use the numeric val      
       prop = (isNaN(numb=Number(prop))) ? prop.trim() : numb
 
       // fugling hacky
-      j = (j == catData.cats.length - 1) ? -1 : j      
+      j = (j == G_D.catData.cats.length - 1) ? -1 : j      
       j++
       // j = (j == catData.cats.length - 1) ? 0 : j++  // why no work
 
       candidate[propname] = prop
     }
-    candidates.push(candidate)
+    G_D.candidates.push(candidate)
   }
-  // console.log('makeData: ')
-  // console.table(candidates)
+
+  getViz()
+}
+
+
+function getViz() {
+  let v,
+      html = 'Select data vizualisation<br>',
+      vizRadio = createRadio()
 
   // rollup table
   select('#exTableDiv')
@@ -225,29 +204,24 @@ function makeData() {
     .removeClass('wideDz')
     .addClass('narrowDz')
 
-  getViz()
-}
-
-
-function getViz() {
+  for (v of G_D.vizTypes) {
+    // html += "<input type='radio' name='viz' value="
+    vizRadio.option(v)
+  }
+  
   select('#chooseViz')
     .style('opacity', 1)
+    .html(html)
 
-  select('#pareto')
-    .mousePressed(pareto)
+  vizRadio.parent('#chooseViz')
+          .mousePressed(vizzed)
 
-  select('#parallel')
-    .mousePressed(parallel)
+  function vizzed() {
+    let selected = vizRadio.value()
+    // console.log('radio ' + selected)
+
+    if (selected == 'pareto') {
+      findParetoFronts()
+    }
+  }
 }
-
-function pareto() {
-  console.log('pareto')
-  console.log(catData.categories)
-}
-
-function parallel() {
-  console.log('parallel')  
-}
-
-
-

@@ -1,100 +1,62 @@
-function pareto() {                   // eslint-disable-line
-  // let candidates = buildcandidates()
-
-
-  // add dominates, dominatesby, front object props
-  for (cand of candidates) {
-    cand.dominates = []
-    cand.dom_by = []
-    cand.front = -1
-  }
-
-  // var uniData = buildUniData(csvUnis)  // include categories and dom data
-  findAllFronts()
-  // findAllFronts(candidates)
-
+function findParetoFronts() {                   // eslint-disable-line
+  let categories = G_D.catData.cats,
+      rankables = G_D.catData.rankables,
+      candidates = G_D.candidates,              // ALL unis - fields but no dom data yet
+      currentFront = 0, 
+      freshCands =addEmptyDominanceData(candidates)
+  
   // console.groupCollapsed('pareto')
+  //   console.log('cats ' + categories)
   //   console.table(candidates)
   //   console.log(catData)
-  // console.groupEnd()
-}
-
-
-// function saveData(data) {
-//   localStorage.setItem('myData', JSON.stringify(data));
-// }
-
-// function restoreData() {
-//   return JSON.parse(localStorage.getItem('myData'))
-// }
-
-
-
-// main loop - recieves all candidates including dominance
-function findAllFronts() {
-  var categories = catData.cats
-  var rankables = catData.rankables
-  var unis = candidates              // ALL unis - fields but no dom data yet
-   
-  var currentFront = 0  
-  var domUnis = contest(deepClone(unis), rankables) // All unis + dom
-  var unisLeft = deepClone(domUnis)                  // TEMP uni + dom - we'll trim it away
-
-  // console.groupCollapsed('faf')
-  //   console.log('fAf cats ' + categories)
-  //   console.table(candidates)
-  //   console.log(catData)
-  //   console.log('unisLeft: ')
-  //   console.table(unisLeft)
+  //   console.log('candsLeft: ')
+  //   console.table(candsLeft)
   // console.groupEnd()
 
+  // todo rename all these variables!
+
+  var domCands = contest(freshCands, rankables) // All unis + dom
+  var candsLeft = deepClone(domCands)                  // TEMP uni + dom - we'll trim it away
 
   // main loop
-  while (unisLeft.length) {
+  while (candsLeft.length) {
     currentFront++
-    // console.log('front:' + currentFront)
-    var paretoUnis = getParetoFront(unisLeft)
+    var frontedCands = getParetoFront(candsLeft)
 
-    for (var paretoUni of paretoUnis) {
+    for (var frontCand of frontedCands) {
       // update front data -> get uni from key and update?
-      var frontUni = domUnis.find(u => u.key === paretoUni)
-      frontUni.front = currentFront
+      var fCand = domCands.find(f => f.key === frontCand)
+      fCand.front = currentFront
                   
-      // remove from unisLeft
-      unisLeft = unisLeft.filter(u => u.key != paretoUni)
+      // remove from candsLeft // todo replace by pop()
+      candsLeft = candsLeft.filter(f => f.key != frontCand)
       
-      for (var uni of unisLeft) {
+      for (var c of candsLeft) {
         // if pareto uni exists in dom_by, remove it
-        if (uni.dom_by.indexOf(paretoUni) != -1) {
-          uni.dom_by = uni.dom_by.filter(u => u != paretoUni)
+        if (c.dom_by.indexOf(frontCand) != -1) {
+          c.dom_by = c.dom_by.filter(f => f != frontCand)
         }
       }
     }
-    // console.log(' ')
   }
-  // console.log('maxFront = ' + currentFront)
-  nFronts = currentFront
-  // all done
-  // console.log('end of fAf')
-  // console.table(domUnis)
+  G_D.nFronts = currentFront
+  G_D.candidates = domCands
 
-  finalCandidates = domUnis
-  saveData(domUnis)
+  saveData(G_D)
   console.log('unis saved')
-
-  let savedString = restoreData()
-  let savedData = []
-  for (let s of savedString) {
-    savedData.push(s)
-  }
-  console.log('retrieved...')
-  // console.table(savedData)
-
-  // start building graphic
-  buildParetoGraphic(domUnis)
+    
+  buildParetoGraphic()
 }
 
 
+function addEmptyDominanceData(candidates) {
+  for (let cand of candidates) {
+      cand.dominates = []
+      cand.dom_by = []
+      cand.front = -1
+    }
+  return candidates
+}
 
 
 // mega 'tournament' between unis - who dominates who
@@ -170,7 +132,6 @@ function getParetoFront(unis) {
 }
 
 
-
 // return comparison array [1,0,0,-1 etc]
 function compareUnis(uni1, uni2, rankables) {
   // console.group('compare ' + uni1 + ' ' + uni2)
@@ -186,7 +147,7 @@ function compareUnis(uni1, uni2, rankables) {
   for (var category of rankables) {
     // if (category.measurable) {
       // var catName = category.name
-      var catName = catData.cats[category]
+      var catName = G_D.catData.cats[category]
       // console.log('comps ' + catName + ' for ' + uni1.name + ':' + uni1[catName] + ' and for ' + uni2.name + ':' + uni2[catName] )
       if (uni1[catName] < uni2[catName]) {
         comparisons.push(1)
@@ -202,26 +163,13 @@ function compareUnis(uni1, uni2, rankables) {
 }
 
 
-
-
-
 function shortCut() {
   console.log('shortie pressed')
+  select('#dz')
+    .hide()
+
+  let savedString = loadData()
+  G_D = restoreData(savedString)
   
-  let savedString = restoreData(),
-      savedData = []
-    
-  for (let s of savedString) {
-    savedData.push(s)
-  }
-
-  console.group()
-    console.log('data restored:' + savedData)
-    console.table(savedData)
-  console.groupEnd()
-
-  buildParetoGraphic(savedData)
+  buildParetoGraphic()
 }
-
-
-

@@ -1,5 +1,8 @@
-let savedData,
-    nFronts
+let G_D = {
+    vizTypes: ['pareto', 'parallel'],
+    catData: {},
+    candidates: []
+}
 
 let COL = {
   // mainColour: $blue,
@@ -11,22 +14,14 @@ let COL = {
   gray: '#112'
 }
 
+
 // sets up html page
-function setup() {   // eslint-disable-line
+function preload() {   // eslint-disable-line
   select('#exTableDiv')
     .hide()
 
   // show button if saved data found
   if (localStorage.getItem('myData')) {
-    let savedString = restoreData()
-    savedData = []
-      
-    for (let s of savedString) {
-      savedData.push(s)
-    }
-    // console.log('data retrieved...')
-    // console.table(savedData)
-      
     createButton('shortcut to pareto using saved Data')
       .position(400, 30)
       .mousePressed(shortCut)
@@ -38,6 +33,7 @@ function setup() {   // eslint-disable-line
     .dragOver(highlight)
     .dragLeave(unhighlight)  
 }
+
 
 // input: raw file from dragndrop
 // processing: checks file suitability
@@ -62,8 +58,30 @@ function gotFile(file) {
     .addClass('narrowDz')    
   // todo disable or change dz event handler
   
-  processFile(file.data)            // eslint-disable-line
+  // show example data table
+  select('#critBox')
+    .style('opacity', '1')
+
+  select('#exTableDiv')
+    .position(20, 180)
+    .show()
+
+  G_D.rawData = file.data
+
+
+  // make html for table and stick it in    
+  let tableHtml = makeExampleTableHtml(file.data)  // !!
+  
+  select('#exTable')
+    .html(tableHtml)
+
+  select('#measRow')
+    .addClass('light')   
+ 
+ //@@ - great callback example 
+  makeOKButton('#catBtnPos', getRankables)
 }
+
 
 // input: id of page element
 // ouput: turns it a yucky brown
@@ -71,13 +89,3 @@ function errorMsg(id) {
     select('#' + id)
       .style('background', COL.brown)
 }
-
-
-
-// radical todo!
-// move current setup into preload -> 
-// setup then takes control and can act as main
-// eg - setup gets rawFile
-// passes it to gotFile  (uhoh - it's inside setup) which returns back to main/setup
-// then setup passes data to process, which returns something, etc
-// dont like passing control by calling functions! pass data between them in main
