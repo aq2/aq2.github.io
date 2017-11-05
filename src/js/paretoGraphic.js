@@ -37,20 +37,16 @@ function drawParetoGraphic(fronts) {   // qq
       canvasW = windowWidth-50,
       canvasH = windowHeight-210,
       nFronts = G_D.nFronts,
-      nodeHeight = floor(canvasH/nFronts),
-      nodeWidth,     // width of each node - depends on max nodes per front 
+      nodeHeight = floor(canvasH/nFronts)/2,
       maxNodesOnFront = 0,
-      m, newNode,
-      nodeH = 40,
-      nodeW = 40,
+      m,
       front,
+      f = 0,
+      cId, len,
       foo
 
-  // console.log('fronts ', fronts)
-  // console.table(cands)
-
   // do we need this - calculates maxNodesperFront
-  for (let front = 1; front < nFronts; front++) {
+  for (front = 1; front < nFronts; front++) {
     m = 0
     for (let c of cands) {
       if (c.front == front) {
@@ -61,67 +57,48 @@ function drawParetoGraphic(fronts) {   // qq
       maxNodesOnFront = m
     }
   }
-
   // console.log('maxnodes on front ' + maxNodesOnFront)
   
-  nodeWidth = floor(canvasW / maxNodesOnFront)
-
-
-  // so how do we calculate width of node?
-  // all nodes have same width = easy
-  // if width*nodesOnFront > canvaswidth, then double up
-
-
-
-  // console.log('node size ' + nodeWidth + ', ' + nodeHeight)
-
-  // put into setup()?
-  // let cnv = createCanvas(canvasW, canvasH)
-  //   .position(30,200)
-  // background(COL.pink)
 
   fill(100)
   stroke(50)
-  // textSize(2)
 
-  // rect(200,200,100,100)
-
-  // let candy = new Candy(G_D.candidates[36], 130, 140)
-  
-  // candy.mouseOver(showName2)
-  
-  // candy.display()
   draw()
-
-  
-
 
   console.groupCollapsed('dPG')
     console.table(G_D.candidates)
     console.log(G_D.catData)
   console.groupEnd()
 
+  // does this need to be inner function?
+  function draw() {
+    let i, widthSoFar, xx, y, mycandy, spacing
 
-function draw() {
-  // let candy
-  // candy = new Candy(G_D.candidates[36], 130, 140)
-  
-  // candy.display()
-    
+    for (f; f<nFronts; f++) {
+      i = 0
+      widthSoFar = 0
+      xx = 0
+      y = nodeHeight * (f+1)
 
-  for (let f=0; f<nFronts; f++) {
-    let y = nodeHeight * (f+1)
-    // line(0, y, canvasW, y)
-    let i = 0
-    for (let c of fronts[f]) {
-      let cX = canvasW / fronts[f].length * (i + 0.5) 
-
-
-      mycandy = new Candy(G_D.candidates[c], cX, y-nodeHeight/2 + 150)
-      mycandy.display()
-      i++
+      for (cId of fronts[f]) {
+        len = fronts[f].length
+        mycandy = new Candy(G_D.candidates[cId], xx, y-nodeHeight/2 + 150, len)
+        mycandy.display()
+        xx += mycandy.candyWidth
+        i++
+      // let canvasLeft = canvasW - xx
+      // let spacing = canvasLeft/(len - 1)
+      // let newX = mycandy.x + (spacing * i)
+      // // mycandy.x = newX
+      // console.log(newX)
+      // // mycandy.span.hide()
+      // let mycandy2 = new Candy(G_D.candidates[cId], newX, y-nodeHeight/2 + 200, len)
+      // mycandy2.display()
+      }
+      // if (xx > canvasW * .75) {
+      //   // man - iterate over front again with
+      // }
     }
-  }
 
 
   // candy.mousePressed(showName2)
@@ -131,10 +108,11 @@ function draw() {
 
 
 // candy constructor !!
-function Candy(candidate, x, y) {
+function Candy(candidate, x, y, nPeers) {
   this.candidate = candidate
   this.x = x
   this.y = y
+  this.nPeers = nPeers
 
   this.id = candidate.key
   this.front = candidate.front
@@ -144,32 +122,51 @@ function Candy(candidate, x, y) {
   let fieldName =  G_D.catData.cats[idField]
   this.name = candidate[fieldName]
 
+
   this.showName = () => {
     console.log('this name ', this.name)
   }
 
   this.display = () => {
-    this.newSpan = createSpan(this.name)
+
+    this.textSize = 10
+    this.newSpan = createSpan(this.name.substr(0,6))
                   .id('candy' + this.id)
                   .position(this.x, this.y)
                   .mousePressed(this.showName)
                   .mouseOut(this.clearTooltip)
-                  .mouseOver(this.showNameTooltip)
+                  .mouseOver(this.showTooltip)
+
+    this.span = select('#candy' + this.id)
+    
+    this.siz = this.span.size()
+    this.candyWidth = this.newSpan.offsetWidth
+
+    this.candyWidth = document.getElementById('candy'+this.id).offsetWidth
+
+
+    // this.textSize = (windowWidth-500)/9/this.nPeers
+    // if (this.textSize > 24) {
+    //   this.textSize = 24
+    // }    
+
+    this.span.style('font-size', this.textSize + 'pt')
+
+
+
   }
 
-  this.showNameTooltip = () => {
+  this.showTooltip = () => {
     // todo rank and nss shouldnae be hard-coded
     let text = this.name
 
-    this.size = select('#candy' + this.id)
-                .size()
-
     this.tooltip = createSpan(text)
                     .addClass('tooltip')
-                    .position(this.x + this.size.width + 5, this.y)
+                    .position(this.x + this.candyWidth + 5, this.y)
   }
   
   this.clearTooltip = () => {
+    //
     this.tooltip.hide()
   } 
 
