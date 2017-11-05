@@ -82,7 +82,7 @@ function drawParetoGraphic(fronts) {   // qq
 
   fill(100)
   stroke(50)
-  textSize(16)
+  // textSize(2)
 
   // rect(200,200,100,100)
 
@@ -114,7 +114,10 @@ function draw() {
     // line(0, y, canvasW, y)
     let i = 0
     for (let c of fronts[f]) {
-      mycandy = new Candy(G_D.candidates[c], 35+nodeWidth*i, y-nodeHeight/2 + 150)
+      let cX = canvasW / fronts[f].length * (i + 0.5) 
+
+
+      mycandy = new Candy(G_D.candidates[c], cX, y-nodeHeight/2 + 150)
       mycandy.display()
       i++
     }
@@ -140,7 +143,6 @@ function Candy(candidate, x, y) {
   let idField = G_D.catData.idCat
   let fieldName =  G_D.catData.cats[idField]
   this.name = candidate[fieldName]
-  console.log('name ', this.name)
 
   this.showName = () => {
     console.log('this name ', this.name)
@@ -157,7 +159,7 @@ function Candy(candidate, x, y) {
 
   this.showNameTooltip = () => {
     // todo rank and nss shouldnae be hard-coded
-    let text = 'rank ' + this.candidate.rank + ' nss ' +this.candidate.nss
+    let text = this.name
 
     this.size = select('#candy' + this.id)
                 .size()
