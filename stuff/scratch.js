@@ -217,6 +217,37 @@ function getParetoFront(unis) {
 }
 
 
+function draw() {
+  for (let f=0; f<nFronts; f++) {
+    let y = nodeHeight * (f+1)
+    // line(0, y, canvasW, y)
+    let i = 0
+    for (let c of fronts[f]) {
+
+      // build a node object for the uni
+      // needs key - all else can be inferred
+      // newNode = makeNode(c)
+
+      // let myEl = createDiv(c)
+                  // .position(nodeWidth*i, y-nodeHeight/2) 
+
+      myB = createButton(c)
+                  .position(35+nodeWidth*i, y-nodeHeight/2 + 150)
+                  .value(c)
+                  // .mouseOver(showInfo)
+                  .mousePressed(showInfo)
+      
+
+      // let v = myB.elt.v
+      // console.table('v ' + v)
+
+      // text(c, 5 + nodeWidth * i , y - nodeHeight/2 + nodeH/2 )
+
+      i++
+    }
+  }
+}
+
 
 
 // return comparison array [1,0,0,-1 etc]

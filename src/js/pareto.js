@@ -164,7 +164,7 @@ function compareUnis(uni1, uni2, rankables) {
 
 
 function shortCut() {
-  console.log('shortie pressed')
+  // console.log('shortie pressed')
   select('#dz')
     .hide()
 

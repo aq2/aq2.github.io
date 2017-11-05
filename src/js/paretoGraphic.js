@@ -1,136 +1,178 @@
+/*global G_D*/
+
 function setup() {
-
 }
-
 
 
 function buildParetoGraphic() {
   let candidate,
-      cFront,
-      fronts = [],
-      nFronts = G_D.nFronts
-      // cands = G_D.candidates
+      f,        // loooping var
+      thisFront,
+      fronts = [],      // front[0] = [18,47...] keys of cands in front
+      nFronts = G_D.nFronts   // number of fronts
 
-  console.groupCollapsed('buildParetoGraphic')
-    console.table(G_D.candidates)
-    console.log('nF ' + nFronts)
-  console.groupEnd()
+  // console.groupCollapsed('buildParetoGraphic')
+  //   console.table(G_D.candidates)
+  //   console.log('nF ' + nFronts)
+  // console.groupEnd()
 
-
-  for (let front=1; front<=nFronts; front++) {
-    let thisFront = []
+  // loop through candidates, assigning key to fronts[]
+  for (f=1; f<=nFronts; f++) {
+    thisFront = []
     for (candidate of G_D.candidates) {
-      // get front
-      cFront = candidate.front
-      if (cFront == front) {
+      if (candidate.front == f) {
         thisFront.push(candidate.key)
       }
     }
     fronts.push(thisFront)
   }
-  console.log(fronts)
+  // console.log(fronts)
 
   drawParetoGraphic(fronts)
-
-
 }
 
-let myB
 
 function drawParetoGraphic(fronts) {   // qq
-  let cands = G_D.candidates
-  // let fronts = 
-
-  let cWidth = windowWidth-50,
-      cHeight = windowHeight-210,
+  let cands = G_D.candidates,
+      canvasW = windowWidth-50,
+      canvasH = windowHeight-210,
       nFronts = G_D.nFronts,
-      nodeHeight = floor(cHeight/nFronts),
+      nodeHeight = floor(canvasH/nFronts),
       nodeWidth,     // width of each node - depends on max nodes per front 
       maxNodesOnFront = 0,
       m, newNode,
       nodeH = 40,
-      nodeW = 40
+      nodeW = 40,
+      front,
+      foo
 
-      console.table('fronts ' + fronts)
-
-  
+  // console.log('fronts ', fronts)
   // console.table(cands)
 
+  // do we need this - calculates maxNodesperFront
   for (let front = 1; front < nFronts; front++) {
     m = 0
     for (let c of cands) {
       if (c.front == front) {
         m++
-        // console.log(c.name + ' on front ' + front)
       }
     }
     if (m > maxNodesOnFront) {
       maxNodesOnFront = m
     }
   }
-  // console.log('maxnodes on front ' + maxNodesOnFront)
-  nodeWidth = floor(cWidth / maxNodesOnFront)
 
-  console.log('node size ' + nodeWidth + ', ' + nodeHeight)
+  // console.log('maxnodes on front ' + maxNodesOnFront)
+  
+  nodeWidth = floor(canvasW / maxNodesOnFront)
+
+
+  // so how do we calculate width of node?
+  // all nodes have same width = easy
+  // if width*nodesOnFront > canvaswidth, then double up
+
+
+
+  // console.log('node size ' + nodeWidth + ', ' + nodeHeight)
 
   // put into setup()?
-  createCanvas(cWidth, cHeight)
-    .position(30,200)
-  background(COL.pink)
+  // let cnv = createCanvas(canvasW, canvasH)
+  //   .position(30,200)
+  // background(COL.pink)
+
+  fill(100)
+  stroke(50)
+  textSize(16)
+
+  // rect(200,200,100,100)
+
+  // let candy = new Candy(G_D.candidates[36], 130, 140)
+  
+  // candy.mouseOver(showName2)
+  
+  // candy.display()
   draw()
 
-  function draw() {
+  
 
-    for (let f=0; f<nFronts; f++) {
-      let y = nodeHeight * (f+1)
-      // line(0, y, cWidth, y)
-      let i = 0
-      for (let c of fronts[f]) {
 
-        // build a node object for the uni
-        // needs key - all else can be inferred
-        // newNode = makeNode(c)
+  console.groupCollapsed('dPG')
+    console.table(G_D.candidates)
+    console.log(G_D.catData)
+  console.groupEnd()
 
-        // let myEl = createDiv(c)
-                    // .position(nodeWidth*i, y-nodeHeight/2) 
 
-        myB = createButton(c)
-                    .position(35+nodeWidth*i, y-nodeHeight/2 + 150)
-                    .value(c)
-                    // .mouseOver(showInfo)
-                    .mousePressed(showInfo)
-        
+function draw() {
+  // let candy
+  // candy = new Candy(G_D.candidates[36], 130, 140)
+  
+  // candy.display()
+    
 
-        // let v = myB.elt.v
-        // console.table('v ' + v)
-
-        // text(c, 5 + nodeWidth * i , y - nodeHeight/2 + nodeH/2 )
-
-        i++
-      }
+  for (let f=0; f<nFronts; f++) {
+    let y = nodeHeight * (f+1)
+    // line(0, y, canvasW, y)
+    let i = 0
+    for (let c of fronts[f]) {
+      mycandy = new Candy(G_D.candidates[c], 35+nodeWidth*i, y-nodeHeight/2 + 150)
+      mycandy.display()
+      i++
     }
   }
 
+
+  // candy.mousePressed(showName2)
 }
-
-function showInfo(evt) {
-  // console.log('info ' + evt)
-  // console.table(evt)
-  let candidateKey = evt.srcElement.value
-  // let candidate = name of candidate with that key
-  let uni = G_D.candidates[candidateKey]
-  let uniname = uni.name
-
-  console.log('name of ' + candidateKey + ' is ' + uniname)
 
 }
 
 
-// function makeNode(cand) {
-//   let node = {
-//     key: cand.key,
-//     name: cand.name,  // todo shouldn't be name - should refer to id field
-//     dominates: cand.dominates,
-//     front: cand.front
-//   }
-// }
+// candy constructor !!
+function Candy(candidate, x, y) {
+  this.candidate = candidate
+  this.x = x
+  this.y = y
+
+  this.id = candidate.key
+  this.front = candidate.front
+
+  // todo yuck
+  let idField = G_D.catData.idCat
+  let fieldName =  G_D.catData.cats[idField]
+  this.name = candidate[fieldName]
+  console.log('name ', this.name)
+
+  this.showName = () => {
+    console.log('this name ', this.name)
+  }
+
+  this.display = () => {
+    this.newSpan = createSpan(this.name)
+                  .id('candy' + this.id)
+                  .position(this.x, this.y)
+                  .mousePressed(this.showName)
+                  .mouseOut(this.clearTooltip)
+                  .mouseOver(this.showNameTooltip)
+  }
+
+  this.showNameTooltip = () => {
+    // todo rank and nss shouldnae be hard-coded
+    let text = 'rank ' + this.candidate.rank + ' nss ' +this.candidate.nss
+
+    this.size = select('#candy' + this.id)
+                .size()
+
+    this.tooltip = createSpan(text)
+                    .addClass('tooltip')
+                    .position(this.x + this.size.width + 5, this.y)
+  }
+  
+  this.clearTooltip = () => {
+    this.tooltip.hide()
+  } 
+
+  // return this // ??
+
+}
+
+
