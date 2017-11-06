@@ -4,38 +4,90 @@
 @import 'classes'
 
 body
-	background $mainColour
-	color $gray
-	font-family Helvetica, Arial, sans-serif
+   	background $mainColour
+ 	color $gray
+ 	font-family Helvetica, Arial, sans-serif
+ 
+ 
+#dz
+ 	padding 8px
+ 	transition width .5s ease 0.15s, background .5s, border-radius .5s ease .5s
+ 
+#critBox, #chooseViz
+ 	// transition opacity 3s
+ 	padding 8px
+ 	transition width .5s ease 0.15s, background .5s, border-radius .5s ease .5s, opacity 1s .75s
+  
+ 
+#dzText
+ 	transition background 2s
+ 
+.trans
+ 	opacity 0
+ 
+ 
+.floater 
+  float left
+  margin-right 20px 
+
+ 
+.clearbox
+  clear: left
+ 
+span 
+  background $brown
+  padding 4px
+  margin 0
+  border solid 1px $darker
+  border-radius 10px
+
+
+
+
+
+
+
+
+
+// @import 'vars'
+// @import 'inputs'
+// @import 'exampleTable'
+// @import 'classes'
+
+// body
+// 	background $mainColour
+// 	color $gray
+// 	font-family Helvetica, Arial, sans-serif
 	
 
-#dz
-	padding 8px
-	transition width .5s ease 0.15s, background .5s
-	transition border-radius .5s ease .5s
+// #dz
+// 	padding 8px
+// 	transition width .5s ease 0.15s, background .5s
+// 	transition border-radius .5s ease .5s
 
 
-#dzText
-	transition background 2s
+// #dzText
+// 	transition background 2s
 
 
-#exTableDiv
-	visibility hidden
-	transition visibility 1s
+// #exTableDiv
+// 	visibility hidden
+// 	transition visibility 1s
 
-#critBox, #chooseViz
-	visibility hidden
-	transition width .5s ease 0.15s, background .5s, visibility 1s
-	transition border-radius .5s ease .5s
+// #critBox, #chooseViz
+// 	visibility hidden
+// 	transition width .5s ease 0.15s, background .5s, visibility 1s
+// 	transition border-radius .5s ease .5s
 		
 
-span
-	background $brown
-	padding 4px
-	margin 0
-	border solid 1px $darker
-	border-radius 10px
-	// font-size 10pt
-	// float left
-	box-sizing: border-box;
+// span
+// 	background $brown
+// 	padding 4px
+// 	margin 0
+// 	border solid 1px $darker
+// 	border-radius 10px
+// 	// font-size 10pt
+// 	// float left
+// 	box-sizing: border-box;
 	
+
