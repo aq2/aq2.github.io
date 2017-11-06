@@ -53,7 +53,7 @@ function gotFile(file) {
   select('#dz')
     .html('file OK')
     .removeClass('wideDz')
-    .addClass('narrow')    
+    .addClass('narrowDz')    
   // todo disable or change dz event handler
   
   // show example data table

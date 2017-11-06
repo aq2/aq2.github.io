@@ -195,8 +195,8 @@ function getViz() {
 
   select('#critBox')
     .html('criteria')
-    .removeClass('wideCrit')
-    .addClass('narrowDz')
+    .removeClass('wideDz')
+    .addClass('narrow')
 
   select('#chooseViz')
     .style('opacity', 1)
