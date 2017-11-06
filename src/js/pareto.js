@@ -3,7 +3,10 @@ function findParetoFronts() {                   // eslint-disable-line
       rankables = G_D.catData.rankables,
       candidates = G_D.candidates,              // ALL unis - fields but no dom data yet
       currentFront = 0, 
-      freshCands =addEmptyDominanceData(candidates)
+      freshCands =addEmptyDominanceData(candidates),
+      fronts = []
+
+      // let G_D.fronts = []
   
   // console.groupCollapsed('pareto')
   //   console.log('cats ' + categories)
@@ -21,9 +24,11 @@ function findParetoFronts() {                   // eslint-disable-line
   // main loop
   while (candsLeft.length) {
     currentFront++
-    var frontedCands = getParetoFront(candsLeft)
-
-    for (var frontCand of frontedCands) {
+    var peers = getParetoFront(candsLeft)
+    // console.log(peers)
+    fronts.push(peers)
+    // console.log(fronts)
+    for (var frontCand of peers) {
       // update front data -> get uni from key and update?
       var fCand = domCands.find(f => f.key === frontCand)
       fCand.front = currentFront
@@ -39,9 +44,9 @@ function findParetoFronts() {                   // eslint-disable-line
       }
     }
   }
-  G_D.nFronts = currentFront
+  // G_D.nFronts = currentFront
   G_D.candidates = domCands
-
+  G_D.fronts = fronts
   saveData(G_D)
   console.log('unis saved')
     
@@ -163,13 +168,3 @@ function compareUnis(uni1, uni2, rankables) {
 }
 
 
-function shortCut() {
-  // console.log('shortie pressed')
-  select('#dz')
-    .hide()
-
-  let savedString = loadData()
-  G_D = restoreData(savedString)
-  
-  buildParetoGraphic()
-}

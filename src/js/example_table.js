@@ -47,7 +47,7 @@ function makeExampleTableHtml(data) {
   myHtml += "<tr id='idRow'></tr>"
   // for instructions and error
   myHtml += "<tr><td colspan='" + (c+2) +"' id='outputCell' class='green'>"
-  myHtml += "select categories to rank by - need at least two"
+  myHtml += "select categories to rank by, need at least two - don't select names etc!"
   myHtml += "</td></tr>"
 
   return myHtml
@@ -133,16 +133,7 @@ function getID() {
   select('#outputCell')
     .html('choose a category to use as identifier - eg name')
 
-  // makeOKButton('#idBtnPos', makeData2(1,2))
   makeOKButton('#idBtnPos', makeData) // !!
-}
-
-
-// @@ powerful pattern - pass parameters to cllbacks!
-function makeData2(x,y) {
-  return function() {
-    console.log(x,y)
-  }
 }
 
 
@@ -161,8 +152,9 @@ function makeData() {
   G_D.catData.idCat = the1
   G_D.catData.iDn = G_D.catData.cats[the1]
 
-  // now make data table - someData is still one raw big string
-
+  
+  // now make data table - rawData is still one raw big string
+  
   // todo fugly hacky loops going on in here
   // for each rawCandidate, change into formatted candidate
   for (i; i<len-1; i++) {
@@ -172,28 +164,30 @@ function makeData() {
     
     for (prop of rawCand) {
       propname = G_D.catData.cats[j]
-     
+      
       // if prop value is alpha, trim it, else just use the numeric val      
       prop = (isNaN(numb=Number(prop))) ? prop.trim() : numb
-
+      
       // fugling hacky
       j = (j == G_D.catData.cats.length - 1) ? -1 : j      
       j++
       // j = (j == catData.cats.length - 1) ? 0 : j++  // why no work
-
+      
       candidate[propname] = prop
     }
     G_D.candidates.push(candidate)
   }
-
+  
+  // get rid of rawdata - do we need it?
+  delete G_D.rawData
+  
   getViz()
 }
 
 
 function getViz() {
-  let v,
-      html = 'Select data vizualisation<br>',
-      vizRadio = createRadio()
+  let viz,
+      html = 'Select data vizualisation '
 
   // rollup table
   select('#exTableDiv')
@@ -201,27 +195,34 @@ function getViz() {
 
   select('#critBox')
     .html('criteria')
-    .removeClass('wideDz')
+    .removeClass('wideCrit')
     .addClass('narrowDz')
 
-  for (v of G_D.vizTypes) {
-    // html += "<input type='radio' name='viz' value="
-    vizRadio.option(v)
-  }
-  
   select('#chooseViz')
     .style('opacity', 1)
+    .removeClass('trans')
+    .style('visibility', 'visible')
     .html(html)
+  
+  for (viz of G_D.vizTypes) {
+    createButton(viz)
+      .mousePressed(getButton(viz))
+      .parent('#chooseViz')
+  }
 
-  vizRadio.parent('#chooseViz')
-          .mousePressed(vizzed)
 
-  function vizzed() {
-    let selected = vizRadio.value()
-    // console.log('radio ' + selected)
+}
 
-    if (selected == 'pareto') {
-      findParetoFronts()
+function getButton(viz) {
+  // wrapped up in anon fn so can accept args as callback
+  return function() {
+    switch (viz) {
+      case 'pareto':
+        findParetoFronts()
+        break
+  
+      default:
+        break
     }
   }
 }

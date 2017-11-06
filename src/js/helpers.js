@@ -1,12 +1,3 @@
-function highlight(evt) {
-  this.style('filter', 'brightness(1.15)')
-  evt.preventDefault()
-}
-
-function unhighlight(evt) {
-  this.style('filter', 'brightness(1.0)')
-  evt.preventDefault()
-}
 
 
 // todo need to saveall - data.  time for mega global object?

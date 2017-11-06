@@ -11,28 +11,23 @@ body
 
 #dz
 	padding 8px
-	transition width .5s ease 0.15s, background .5s, border-radius .5s ease .5s
+	transition width .5s ease 0.15s, background .5s
+	transition border-radius .5s ease .5s
 
-#critBox, #chooseViz
-	// transition opacity 3s
-	padding 8px
-	transition width .5s ease 0.15s, background .5s, border-radius .5s ease .5s, opacity 1s .75s
-		
-	
+
 #dzText
 	transition background 2s
 
-.trans
-	opacity 0
 
+#exTableDiv
+	visibility hidden
+	transition visibility 1s
 
-.floater {
-	float left
-	margin-right 20px 
-}
-
-.clearbox
-	clear: left
+#critBox, #chooseViz
+	visibility hidden
+	transition width .5s ease 0.15s, background .5s, visibility 1s
+	transition border-radius .5s ease .5s
+		
 
 span
 	background $brown
@@ -44,8 +39,3 @@ span
 	// float left
 	box-sizing: border-box;
 	
-.tooltip
-	background $pink
-	padding 2px
-	border dashed 2px $darkest
-	border-radius 10px

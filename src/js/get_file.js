@@ -1,7 +1,8 @@
 let G_D = {
     vizTypes: ['pareto', 'parallel'],
     catData: {},
-    candidates: []
+    candidates: [],
+    fronts: []
 }
 
 let COL = {
@@ -15,10 +16,13 @@ let COL = {
 }
 
 
-// sets up html page
+// sets up html page, shows dropzone
 function preload() {   // eslint-disable-line
-  select('#exTableDiv')
-    .hide()
+  // setup dropzone
+  select('#dz')
+    .drop(gotFile)
+    .dragOver(highlight)
+    .dragLeave(unhighlight)
 
   // show button if saved data found
   if (localStorage.getItem('myData')) {
@@ -26,12 +30,6 @@ function preload() {   // eslint-disable-line
       .position(400, 30)
       .mousePressed(shortCut)
   }
-  
-  // setup dropzone
-  select('#dz')
-    .drop(gotFile)
-    .dragOver(highlight)
-    .dragLeave(unhighlight)  
 }
 
 
@@ -55,16 +53,18 @@ function gotFile(file) {
   select('#dz')
     .html('file OK')
     .removeClass('wideDz')
-    .addClass('narrowDz')    
+    .addClass('narrow')    
   // todo disable or change dz event handler
   
   // show example data table
   select('#critBox')
-    .style('opacity', '1')
+    .html('select rankable criteria using the table below')
+    .removeClass('trans')
+    .style('visibility', 'visible')
 
   select('#exTableDiv')
     .position(20, 180)
-    .show()
+    .style('visibility', 'visible')
 
   G_D.rawData = file.data
 
@@ -88,4 +88,28 @@ function gotFile(file) {
 function errorMsg(id) {
     select('#' + id)
       .style('background', COL.brown)
+    select('#dz')
+      .style('filter', 'brightness(1.0)')
+}
+
+
+function highlight(evt) {
+  this.style('filter', 'brightness(1.25)')
+  evt.preventDefault()
+}
+
+function unhighlight(evt) {
+  this.style('filter', 'brightness(1.0)')
+  evt.preventDefault()
+}
+
+function shortCut() {
+  // console.log('shortie pressed')
+  select('#dz')
+    .hide()
+
+  let savedString = loadData()
+  G_D = restoreData(savedString)
+  
+  buildParetoGraphic()
 }

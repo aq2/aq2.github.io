@@ -4,10 +4,16 @@
 .narrow 
 	width: 80px
 	border-radius: 25%
+	border 5px solid $darkest
+	background $darker
 
 .wide
 	width 600px
 	border-radius: 0
+	border 5px solid $green
+	background $lighter
+	min-height: 40px
+	text-align center
 
 .narrowDz
 	width: 80px
@@ -22,6 +28,20 @@
 	background $lighter
 	min-height: 40px
 	text-align center
+
+
+.wideCrit
+	width 800px
+	border-radius: 0
+	border 5px solid $green
+	background $lighter
+	// min-height: 40px
+	text-align center
+	padding: 6px
+
+
+
+
 
 .light
 	background $light
@@ -66,3 +86,21 @@
 	width 80px
 	height 40px
 	background $darkest
+
+.trans
+	opacity 0
+
+
+.floater {
+	float left
+	margin-right 20px 
+}
+
+.clearbox
+	clear: left
+
+.tooltip
+	background $pink
+	padding 2px
+	border dashed 2px $darkest
+	border-radius 10px

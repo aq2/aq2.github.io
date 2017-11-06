@@ -6,71 +6,31 @@ function setup() {
 
 function buildParetoGraphic() {
   let candidate,
-      f,        // loooping var
-      thisFront,
-      fronts = [],      // front[0] = [18,47...] keys of cands in front
-      nFronts = G_D.nFronts   // number of fronts
-
-  // console.groupCollapsed('buildParetoGraphic')
-  //   console.table(G_D.candidates)
-  //   console.log('nF ' + nFronts)
-  // console.groupEnd()
-
-  // loop through candidates, assigning key to fronts[]
-  for (f=1; f<=nFronts; f++) {
-    thisFront = []
-    for (candidate of G_D.candidates) {
-      if (candidate.front == f) {
-        thisFront.push(candidate.key)
-      }
-    }
-    fronts.push(thisFront)
-  }
-  // console.log(fronts)
-
-  drawParetoGraphic(fronts)
-}
-
-
-function drawParetoGraphic(fronts) {   // qq
-  let cands = G_D.candidates,
+      f = 0,
+      fronts = G_D.fronts,
+      nFronts = fronts.length,
+      cands = G_D.candidates,
       canvasW = windowWidth-50,
       canvasH = windowHeight-210,
-      nFronts = G_D.nFronts,
       nodeHeight = floor(canvasH/nFronts)/2,
-      maxNodesOnFront = 0,
-      m,
-      front,
-      f = 0,
-      cId, len,
+      cId, 
+      len,
       foo
-
-  // do we need this - calculates maxNodesperFront
-  for (front = 1; front < nFronts; front++) {
-    m = 0
-    for (let c of cands) {
-      if (c.front == front) {
-        m++
-      }
-    }
-    if (m > maxNodesOnFront) {
-      maxNodesOnFront = m
-    }
-  }
-  // console.log('maxnodes on front ' + maxNodesOnFront)
-  
-
+    
+  console.groupCollapsed('dPG')
+    console.log(G_D)
+    console.log(G_D.catData)
+    // console.table(G_D.candidates)
+  console.groupEnd()
+      
+  // set up p5 variables - setup()?
   fill(100)
   stroke(50)
-
+  // do it
   draw()
 
-  console.groupCollapsed('dPG')
-    console.table(G_D.candidates)
-    console.log(G_D.catData)
-  console.groupEnd()
 
-  // does this need to be inner function?
+  // qq need to be inner function? yes if want scope
   function draw() {
     let i, widthSoFar, xx, y, mycandy, spacing
 
@@ -86,26 +46,14 @@ function drawParetoGraphic(fronts) {   // qq
         mycandy.display()
         xx += mycandy.candyWidth
         i++
-      // let canvasLeft = canvasW - xx
-      // let spacing = canvasLeft/(len - 1)
-      // let newX = mycandy.x + (spacing * i)
-      // // mycandy.x = newX
-      // console.log(newX)
-      // // mycandy.span.hide()
-      // let mycandy2 = new Candy(G_D.candidates[cId], newX, y-nodeHeight/2 + 200, len)
-      // mycandy2.display()
       }
-      // if (xx > canvasW * .75) {
-      //   // man - iterate over front again with
-      // }
+      let myTest = createSpan('i wonder how long this is?')
+      .style('opacity', '0')
+      // console.log(myTest.size())
+      // console.log(myTest.position())
     }
-
-
-  // candy.mousePressed(showName2)
+  }
 }
-
-}
-
 
 // candy constructor !!
 function Candy(candidate, x, y, nPeers) {
@@ -151,9 +99,6 @@ function Candy(candidate, x, y, nPeers) {
     // }    
 
     this.span.style('font-size', this.textSize + 'pt')
-
-
-
   }
 
   this.showTooltip = () => {
@@ -169,8 +114,6 @@ function Candy(candidate, x, y, nPeers) {
     //
     this.tooltip.hide()
   } 
-
-  // return this // ??
 
 }
 
