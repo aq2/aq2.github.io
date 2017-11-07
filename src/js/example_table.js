@@ -36,9 +36,10 @@ function makeExampleTableHtml(data) {
   }
 
   // show rankables row
-  myHtml += '<tr id="measRow"><td>select rankable criteria</td>'
+  myHtml += "<tr id='measRow'><td>select rankable criteria</td>"
   for (c in categories) {
-    myHtml += "<td><input type='checkbox' checked id='cat" + c + "'>"
+    myHtml += "<td><input type='checkbox' name='cat" + c + "' id='cat" + c + "'>"
+    myHtml += "<label for='cat" + c + "'><span> </span></label></td>"
   }
   myHtml += "<td id='catBtnPos'></td></tr>"
 
@@ -88,6 +89,8 @@ function getMaxis() {
     html += "<td>"
     if (G_D.catData.rankables.indexOf(i) != -1) {
       html += "<input type='checkbox' id='max" + i + "'>"
+      html += "<label for='max" + i + "'><span> </span></label>"
+    
     } 
     html += "</td>"
   }
@@ -114,7 +117,9 @@ function getID() {
 
   // for each category max checkbox, add to maxis[] if checked, and build iD row
   for (i; i<length; i++) {
-    html += "<td><input type='radio' name='iD' value='" + i + "' id=radio" + i + "></td>"
+    html += "<td><input type='radio' name='iD' value='" + i + "' id=radio" + i + ">"
+    html += "<label for='radio" + i + "'><span> </span></label>"
+      html += "</td>"
     if (G_D.catData.rankables.indexOf(i) != -1) {
       if (select('#max' + i).checked()) {
         G_D.catData.maxis.push(i)
@@ -199,9 +204,7 @@ function getViz() {
     .addClass('narrow')
 
   select('#chooseViz')
-    // .style('opacity', 1)
     .removeClass('invizbl')
-    // .style('visibility', 'visible')
     .addClass('vizbl')
     .html(html)
   
