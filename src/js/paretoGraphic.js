@@ -80,6 +80,7 @@ function Candy(candidate, x, y, nPeers) {
     this.textSize = 10
     this.newSpan = createSpan(this.name.substr(0,6))
                   .id('candy' + this.id)
+                  .addClass('candy')
                   .position(this.x, this.y)
                   .mousePressed(this.showName)
                   .mouseOut(this.clearTooltip)
