@@ -1,10 +1,12 @@
 /*global G_D*/
 
-function setup() {
-}
 
 
-function buildParetoGraphic() {
+// function setup() {
+// }
+
+
+function drawPareto() {
   let candidate,
       f = 0,
       fronts = G_D.fronts,
@@ -15,45 +17,54 @@ function buildParetoGraphic() {
       nodeHeight = floor(canvasH/nFronts)/2,
       cId, 
       len,
+      i, widthSoFar, xx, y, mycandy, spacing,
+      paretoDiv = false,
+      pD,
       foo
     
-  console.groupCollapsed('dPG')
-    console.log(G_D)
-    console.log(G_D.catData)
-    // console.table(G_D.candidates)
-  console.groupEnd()
-      
-  // set up p5 variables - setup()?
-  fill(100)
-  stroke(50)
-  // do it
-  draw()
+  // console.groupCollapsed('drawPareto')
+  //   console.log(G_D)
+  // console.groupEnd()
+  
+  // remove div if already exists
+  if (!(pD == select('#paretoDiv'))) {
+    removePareto()
+  } 
 
+  // create parent div to hold candy 'nodes'
+  pD = createDiv('')
+        .id('paretoDiv')
+        .position(0,150)  // todo magic numbers
+        .size(canvasW, canvasH)
+  
+  // loop over each front and display candies
+  for (f; f<nFronts; f++) {
+    i = 0
+    widthSoFar = 0
+    xx = 0
+    y = nodeHeight * (f+1)
+    
+    // if x > canvasWidth, put on next row?
 
-  // qq need to be inner function? yes if want scope
-  function draw() {
-    let i, widthSoFar, xx, y, mycandy, spacing
-
-    for (f; f<nFronts; f++) {
-      i = 0
-      widthSoFar = 0
-      xx = 0
-      y = nodeHeight * (f+1)
-
-      for (cId of fronts[f]) {
-        len = fronts[f].length
-        mycandy = new Candy(G_D.candidates[cId], xx, y-nodeHeight/2 + 150, len)
-        mycandy.display()
-        xx += mycandy.candyWidth
-        i++
-      }
-      let myTest = createSpan('i wonder how long this is?')
-      .style('opacity', '0')
-      // console.log(myTest.size())
-      // console.log(myTest.position())
+    for (cId of fronts[f]) {
+      len = fronts[f].length
+      mycandy = new Candy(G_D.candidates[cId], xx, y-nodeHeight/2, len)
+      mycandy.display()
+      xx += mycandy.candyWidth
+      i++
     }
   }
 }
+
+
+function removePareto() {
+  select('#paretoDiv')
+  .remove() 
+}
+
+
+
+
 
 // candy constructor !!
 function Candy(candidate, x, y, nPeers) {
@@ -87,7 +98,8 @@ function Candy(candidate, x, y, nPeers) {
                   .mouseOver(this.showTooltip)
 
     this.span = select('#candy' + this.id)
-    
+                .parent(select('#paretoDiv'))
+
     this.siz = this.span.size()
     this.candyWidth = this.newSpan.offsetWidth
 
@@ -109,11 +121,13 @@ function Candy(candidate, x, y, nPeers) {
     this.tooltip = createSpan(text)
                     .addClass('tooltip')
                     .position(this.x + this.candyWidth + 5, this.y)
+                
+      return false
   }
   
   this.clearTooltip = () => {
     //
-    this.tooltip.hide()
+    this.tooltip.remove()
   } 
 
 }

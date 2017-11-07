@@ -4,31 +4,33 @@ main project:
 
 
 now!:
-  ✔ organize fn structure! @done (31-10-17 17:16)
-  ✔ rollup extable @done (01-11-17 23:03)
-    ✘ first mave it a qdiv @cancelled (01-11-17 23:03)
-  ✔ getViz @done (01-11-17 23:03)
-  ✔ transitions @done (01-11-17 23:03)
 
 
 getViz:
-  ✔ programatically build div with radio buttons @done (31-10-17 17:17)
-  ✔ radio.clicked calls doViz(vizType) @done (31-10-17 17:17)
-  ✔ use buttons rather than radios @done (01-11-17 23:04)
-  ☐ mock it all out so straight to pareto
+  ✔ mock it all out so straight to pareto @done(17-11-07 14:10)
 
 
 rollup:
-  ✔ css @done (01-11-17 23:04)
   ☐ event handlers - hover, click
-  ✘ rollup(divID)  ? @cancelled (31-10-17 17:17)
-  ✘ Qdiv.roller(x,y,z) @cancelled (01-11-17 23:04)
 
   idea! - don't rollup, just hide the div, show it again with all state?
-
+        - make Dz etc objects with shared props and methods
+        - have full and rolledup states and methods
+        - that's why my candies are objects - or should be!
 
 ＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿
 
 Archive:
+  ✔ organize fn structure! @done (31-10-17 17:16)
+  ✔ rollup extable @done (01-11-17 23:03)
+  ✔ getViz @done (01-11-17 23:03)
+  ✔ transitions @done (01-11-17 23:03)
+  ✔ programatically build div with radio buttons @done (31-10-17 17:17)
+  ✔ radio.clicked calls doViz(vizType) @done (31-10-17 17:17)
+  ✔ use buttons rather than radios @done (01-11-17 23:04)
+  ✔ css @done (01-11-17 23:04)
+  ✘ first mave it a qdiv @cancelled (01-11-17 23:03)
+  ✘ rollup(divID)  ? @cancelled (31-10-17 17:17)
+  ✘ Qdiv.roller(x,y,z) @cancelled (01-11-17 23:04)
  ✔ git! @done (30-10-17 16:31) @project(now!)
  ✔ rollup dropzone when ok @done (28-10-17 23:35) @project(dropZone)

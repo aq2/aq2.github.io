@@ -50,7 +50,7 @@ function findParetoFronts() {                   // eslint-disable-line
   saveData(G_D)
   console.log('unis saved')
     
-  buildParetoGraphic()
+  drawPareto()
 }
 
 

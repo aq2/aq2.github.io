@@ -207,3 +207,9 @@ transition border-radius 2s ease 1.5s {
   border: solid 1px #2a4e6c;
   border-radius: 10px;
 }
+.tooltip {
+  background: #b44669;
+  padding: 2px;
+  border: dashed 2px #1c3448;
+  border-radius: 10px;
+}

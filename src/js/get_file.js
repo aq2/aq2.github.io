@@ -32,6 +32,9 @@ function preload() {   // eslint-disable-line
   }
 }
 
+function setup() {
+}
+
 
 // input: raw file from dragndrop
 // processing: checks file suitability
@@ -56,8 +59,11 @@ function gotFile(file) {
     .removeClass('widest')
     .addClass('narrow')
     .style('filter', 'brightness(1.0)')
-  // todo disable or change dz event handler
-  
+    .mouseOver(showDzHover)
+    .mouseOut(hideDzHover)
+    .mousePressed(newDz)
+    // todo could dispense with tooltip, and change the html/object-state instead!
+
   // show example data table
   select('#critBox')
     .html('select rankable criteria using the table below')
@@ -76,7 +82,7 @@ function gotFile(file) {
   select('#measRow')
     .addClass('light')   
  
- //qq - great callback example 
+ //qq - great callback example - could actually pass data here for less spaghetti
   makeOKButton('#catBtnPos', getRankables)
 }
 
@@ -89,7 +95,6 @@ function errorMsg(id) {
     select('#dz')
       .style('filter', 'brightness(1.0)')
 }
-
 
 function highlight(evt) {
   this.style('filter', 'brightness(1.25)')
@@ -109,5 +114,27 @@ function shortCut() {
   let savedString = loadData()
   G_D = restoreData(savedString)
   
-  buildParetoGraphic()
+  drawPareto()
+}
+
+
+function showDzHover() {
+  createSpan('click to drop another file')
+    .addClass('tooltip')
+    .id('dzTooltip')
+    .position(100, 100)
+  
+  // prevent multiple tooltips
+  return false
+}
+
+function hideDzHover() {
+  select('#dzTooltip')
+    .remove()
+  
+  return false
+}
+
+function newDz() {
+  // todo
 }
