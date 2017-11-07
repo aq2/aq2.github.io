@@ -48,7 +48,6 @@ function findParetoFronts() {                   // eslint-disable-line
   G_D.candidates = domCands
   G_D.fronts = fronts
   saveData(G_D)
-  console.log('unis saved')
     
   drawPareto()
 }
@@ -85,7 +84,7 @@ function contest(unis, rankables) {
       var uni2 = unis[j]
       // compare uni1 with uni2
       // console.log(i, j)
-      // todo rewrite using rankables rather than cats
+      // todo maxis not taken into account!
       var comparisons = compareUnis(unis[i], unis[j], rankables)
 
       // todo - too much pushing
@@ -147,6 +146,9 @@ function compareUnis(uni1, uni2, rankables) {
   //   console.log(' ' )
   // console.groupEnd()
 
+  // todo rewrite using alpha codes rather than -1
+  // easy to find an alpha in a string
+  // eg easy to find 'b' in comparisons='aaaabab'
 
   var comparisons = []
   for (var category of rankables) {

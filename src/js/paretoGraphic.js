@@ -1,12 +1,6 @@
 /*global G_D*/
 
-
-
-// function setup() {
-// }
-
-
-function drawPareto() {
+function drawParetoOLD() {
   let candidate,
       f = 0,
       fronts = G_D.fronts,
@@ -18,7 +12,7 @@ function drawPareto() {
       cId, 
       len,
       i, widthSoFar, xx, y, mycandy, spacing,
-      paretoDiv = false,
+      paretoDiv,
       pD,
       foo
     
@@ -27,15 +21,16 @@ function drawPareto() {
   // console.groupEnd()
   
   // remove div if already exists
-  if (!(pD == select('#paretoDiv'))) {
+  if (!(paretoDiv == select('#paretoDiv'))) {
     removePareto()
   } 
 
   // create parent div to hold candy 'nodes'
-  pD = createDiv('')
+  paretoDiv = createDiv('')
         .id('paretoDiv')
         .position(0,150)  // todo magic numbers
         .size(canvasW, canvasH)
+  //
   
   // loop over each front and display candies
   for (f; f<nFronts; f++) {
@@ -57,17 +52,94 @@ function drawPareto() {
 }
 
 
-function removePareto() {
-  select('#paretoDiv')
-  .remove() 
+// draw the whole graphic
+function drawPareto() {
+  let paretoDiv,
+      fronts = G_D.fronts,
+      nFronts = fronts.length,
+      canvasW = windowWidth-50,   // magic
+      canvasH = windowHeight-160,
+      nodeHeight = 32,            // based on span textsize?
+      frontH,
+      f, x, y, c,
+      currentFront, currentFrontLength,
+      widthSoFar = 0, // width of candies in a row
+      candy, candidate,
+      foo
+
+
+  // setup 'canvas'
+  
+  console.groupCollapsed('drawPareto')
+    console.log(G_D)
+  console.groupEnd()
+  
+  // remove div if already exists
+  if (!(paretoDiv == select('#paretoDiv'))) {
+    removePareto()
+  } 
+  
+  // create parent div to hold candy 'nodes'
+  paretoDiv = createDiv('')
+                .id('paretoDiv')
+                .position(0,150)  // magic //todo proper grid!
+                .size(canvasW, canvasH)
+  //
+  
+
+  // divide canvas into rows for each front
+  // might have to do similar remargining trick for rows?
+  // but for now, split canvas into strips
+  frontH = Math.floor(canvasH / nFronts)
+  // console.log(nFronts, canvasH, frontH)
+  
+
+  // draw each row/front
+  for (f=0; f<nFronts; f++) {
+    widthSoFar = 0
+    currentFront = fronts[f]
+    console.log('front', f, currentFront)
+    currentFrontLength = currentFront.length
+
+    for (c=0; c<currentFrontLength; c++) {   // each c will be a candidate id
+      let candID = currentFront[c]
+      candidate = G_D.candidates[candID]
+      
+      x = widthSoFar
+      // y = nodeHeight * (f+1) //
+      y = f * canvasH / nFronts
+      candy = new Candy(candidate, x, y, currentFrontLength)
+      candy.display()
+      widthSoFar += candy.candyWidth
+      console.log('candidate', candID, candy.name)
+   }
+
+  }
+
+
 }
 
 
 
 
 
+
+
+
+
+
+
+
+function removePareto() {
+  select('#paretoDiv')
+  .remove() 
+}
+
+
 // candy constructor !!
 function Candy(candidate, x, y, nPeers) {
+  // console.log('candy created')
+  
   this.candidate = candidate
   this.x = x
   this.y = y
@@ -81,15 +153,16 @@ function Candy(candidate, x, y, nPeers) {
   let fieldName =  G_D.catData.cats[idField]
   this.name = candidate[fieldName]
 
-
+  // todo too many this-es?
   this.showName = () => {
     console.log('this name ', this.name)
   }
 
   this.display = () => {
-
-    this.textSize = 10
-    this.newSpan = createSpan(this.name.substr(0,6))
+    // console.log('display')
+    
+    this.textSize = 12
+    this.newSpan = createSpan(this.name)
                   .id('candy' + this.id)
                   .addClass('candy')
                   .position(this.x, this.y)
@@ -129,7 +202,4 @@ function Candy(candidate, x, y, nPeers) {
     //
     this.tooltip.remove()
   } 
-
 }
-
-
