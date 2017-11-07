@@ -1,7 +1,7 @@
 button {
-  background-color: #6c2a3f;
+  background-color: #6c382a;
   border: none;
-  color: #e2b4c3;
+  color: #e2beb4;
   padding: 8px;
   text-align: center;
   text-decoration: none;
@@ -9,7 +9,7 @@ button {
   font-size: 16px;
 }
 button:hover {
-  background: #903854;
+  background: #904a38;
 }
 label {
   display: inline-block;
@@ -23,7 +23,7 @@ label span {
   width: 12px;
   height: 12px;
   transform-origin: center;
-  border: 2px solid #6c2a3f;
+  border: 2px solid #6c382a;
   vertical-align: -6px;
   margin-right: 10px;
   transition: background-color 150ms 200ms, transform 350ms cubic-bezier(0.78, -1.22, 0.17, 1.89);
@@ -32,7 +32,7 @@ label span:before {
   content: "";
   width: 0px;
   height: 2px;
-  background: #e2b4c3;
+  background: #e2beb4;
   position: absolute;
   transform: rotate(45deg);
   top: 10px;
@@ -44,7 +44,7 @@ label span:after {
   content: "";
   width: 0;
   height: 2px;
-  background: #e2b4c3;
+  background: #e2beb4;
   position: absolute;
   transform: rotate(305deg);
   top: 14px;
@@ -66,7 +66,7 @@ input[type="radio"] {
 }
 input[type="checkbox"]:checked + label span,
 input[type="radio"]:checked + label span {
-  background-color: #6c2a3f;
+  background-color: #6c382a;
   transform: scale(1.15);
 }
 input[type="checkbox"]:checked + label span:after,
@@ -83,7 +83,7 @@ input[type="radio"]:checked + label span:before {
 }
 input[type="checkbox"]:checked + label:hover span,
 input[type="radio"]:checked + label:hover span {
-  background-color: #903854;
+  background-color: #904a38;
   transform: scale(1.15);
 }
 input[type="checkbox"]:checked + label:hover span:after,
@@ -102,7 +102,7 @@ input[type="radio"] {
   border-radius: 20px;
 }
 #exTable {
-  color: #2b1119;
+  color: #2b1611;
   border-collapse: collapse;
   border-spacing: 0;
 /* last-child blank cells! */
@@ -113,8 +113,8 @@ input[type="radio"] {
   height: 30px;
 }
 #exTable th {
-  background: #6c2a3f;
-  color: #e2b4c3;
+  background: #6c382a;
+  color: #e2beb4;
   font-weight: bold;
   height: 40px;
 }
@@ -134,7 +134,7 @@ input[type="radio"] {
 }
 body {
   color: #112;
-  background: #b44669;
+  background: #b45d46;
   font-family: Helvetica, Arial, sans-serif;
 }
 #dz,
@@ -163,14 +163,14 @@ transition border-radius 2s ease 1.5s {
 .narrow {
   width: 80px;
   border-radius: 25%;
-  background: #6c2a3f;
-  border: 5px solid #481c2a;
+  background: #6c382a;
+  border: 5px solid #48251c;
 }
 .wide {
   width: 400px;
   border-radius: 0;
   border: 5px solid #9ab446;
-  background: #d38fa5;
+  background: #d39d8f;
   min-height: 40px;
   text-align: center;
 }
@@ -178,33 +178,33 @@ transition border-radius 2s ease 1.5s {
   width: 600px;
   border-radius: 0;
   border: 5px solid #9ab446;
-  background: #d38fa5;
+  background: #d39d8f;
   min-height: 40px;
   text-align: center;
 }
 .light {
-  background: #c56986;
+  background: #c57c69;
 }
 .lighter {
-  background: #d38fa5;
+  background: #d39d8f;
 }
 .lightest {
-  background: #e2b4c3;
+  background: #e2beb4;
 }
 .dark {
-  background: #903854;
+  background: #904a38;
 }
 .darker {
-  background: #6c2a3f;
+  background: #6c382a;
 }
 .darkest {
-  background: #481c2a;
+  background: #48251c;
 }
 .hidden {
   display: none;
 }
 .darkBorder {
-  border: 5px #481c2a solid;
+  border: 5px #48251c solid;
 }
 .border {
   border: 5px #9ab446 solid;
@@ -222,6 +222,6 @@ span {
   background: #b45d46;
   padding: 4px;
   margin: 0;
-  border: solid 1px #6c2a3f;
+  border: solid 1px #6c382a;
   border-radius: 10px;
 }
