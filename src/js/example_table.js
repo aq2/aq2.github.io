@@ -195,13 +195,14 @@ function getViz() {
 
   select('#critBox')
     .html('criteria')
-    .removeClass('wideDz')
+    .removeClass('wide')
     .addClass('narrow')
 
   select('#chooseViz')
-    .style('opacity', 1)
-    .removeClass('trans')
-    .style('visibility', 'visible')
+    // .style('opacity', 1)
+    .removeClass('invizbl')
+    // .style('visibility', 'visible')
+    .addClass('vizbl')
     .html(html)
   
   for (viz of G_D.vizTypes) {

@@ -1,93 +1,108 @@
 @import 'vars'
 @import 'inputs'
 @import 'exampleTable'
-@import 'classes'
 
-body
-   	background $mainColour
- 	color $gray
- 	font-family Helvetica, Arial, sans-serif
  
- 
-#dz
+body 
+	color: $gray;
+	background: $mainColour;
+	font-family: 'Helvetica, Arial, sans-serif'
+
+
+#dz, #critBox, #chooseViz, #dzText
  	padding 8px
- 	transition width .5s ease 0.15s, background .5s, border-radius .5s ease .5s
- 
-#critBox, #chooseViz
- 	// transition opacity 3s
- 	padding 8px
- 	transition width .5s ease 0.15s, background .5s, border-radius .5s ease .5s, opacity 1s .75s
-  
- 
-#dzText
- 	transition background 2s
- 
-.trans
- 	opacity 0
- 
+ 	transition width .5s, background .5s
+	transition border-radius 2s ease 1.5s
+	transition visibility .5s
+
  
 .floater 
-  float left
-  margin-right 20px 
-
+  	float left
+  	margin-right 20px 
  
 .clearbox
-  clear: left
+  	clear: left
+
+
+.vizbl
+	visibility: visible
+
+.invizbl
+	visibility hidden
+//
+
+.narrow 
+    width: 80px
+    border-radius: 25%
+    background $darker
+    border 5px solid $darkest
+
+.wide
+    width 400px
+    border-radius: 0
+    border 5px solid $green
+    background $lighter
+    min-height: 40px
+    text-align center
+
  
+.widest
+    width 600px
+    border-radius: 0
+    border 5px solid $green
+    background $lighter
+    min-height: 40px
+    text-align center
+ 
+ 
+.light
+    background $light
+ 
+.lighter
+    background $lighter
+ 
+.lightest
+    background $lightest
+ 
+.dark 
+    background $dark
+ 
+.darker
+    background $darker
+ 
+.darkest
+    background $darkest
+ 
+.hidden 
+    display none
+ 
+.darkBorder
+    border 5px $darkest solid
+ 
+.border
+    border 5px $green solid
+ 
+.rolledUp 
+ 	border 8px solid $pink
+    background yellow
+ 
+.brown
+    background $brown
+
+.green 
+    color $green
+
 span 
-  background $brown
-  padding 4px
-  margin 0
-  border solid 1px $darker
-  border-radius 10px
+  	background $brown
+  	padding 4px
+  	margin 0
+  	border solid 1px $darker
+  	border-radius 10px
 
 
 
-
-
-
-
-
-
-// @import 'vars'
-// @import 'inputs'
-// @import 'exampleTable'
-// @import 'classes'
-
-// body
-// 	background $mainColour
-// 	color $gray
-// 	font-family Helvetica, Arial, sans-serif
-	
-
-// #dz
-// 	padding 8px
-// 	transition width .5s ease 0.15s, background .5s
-// 	transition border-radius .5s ease .5s
-
-
-// #dzText
-// 	transition background 2s
-
-
-// #exTableDiv
-// 	visibility hidden
-// 	transition visibility 1s
-
-// #critBox, #chooseViz
-// 	visibility hidden
-// 	transition width .5s ease 0.15s, background .5s, visibility 1s
-// 	transition border-radius .5s ease .5s
-		
-
-// span
-// 	background $brown
-// 	padding 4px
-// 	margin 0
-// 	border solid 1px $darker
-// 	border-radius 10px
-// 	// font-size 10pt
-// 	// float left
-// 	box-sizing: border-box;
-	
-
+// .narrowDz
+//     width: 80px
+//     border-radius: 25%
+//     border 5px solid $darkest
+//     background $darker

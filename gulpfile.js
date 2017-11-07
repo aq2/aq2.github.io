@@ -30,7 +30,7 @@ function customPlumber(errTitle) {
 gulp.task('stylus', () => {
   gulp.src(srcDir + '/stylus/main.styl')
       .pipe(customPlumber('Stylus Error'))  
-      .pipe(stylus({ compress: true}))
+      .pipe(stylus())
       .pipe(gulp.dest(srcDir))
       .pipe(browserSync.reload({ stream:true }))
 })

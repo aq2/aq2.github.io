@@ -46,14 +46,16 @@ function gotFile(file) {
     errorMsg('dzSize')
     return
   }
-
   // todo file should have at least three lines, header, cand1, cand2
+  
+  G_D.rawData = file.data
   
   // rollup the dropzone
   select('#dz')
     .html('file OK')
-    .removeClass('wideDz')
-    .addClass('narrowDz')    
+    .removeClass('widest')
+    .addClass('narrow')
+    .style('filter', 'brightness(1.0)')
   // todo disable or change dz event handler
   
   // show example data table
@@ -66,9 +68,6 @@ function gotFile(file) {
     .position(20, 180)
     .style('visibility', 'visible')
 
-  G_D.rawData = file.data
-
-
   // make html for table and stick it in    
   let tableHtml = makeExampleTableHtml(file.data)  // !!
   
@@ -78,7 +77,7 @@ function gotFile(file) {
   select('#measRow')
     .addClass('light')   
  
- //@@ - great callback example 
+ //qq - great callback example 
   makeOKButton('#catBtnPos', getRankables)
 }
 
