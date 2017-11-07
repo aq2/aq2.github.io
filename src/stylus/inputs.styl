@@ -1,23 +1,23 @@
 button
-    background-color: $darker
-    border: none;
-    color: $lightest;
-    padding: 8px
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px
+    background-color $darker
+    border none
+    color $lightest
+    padding 8px
+    text-align center
+    text-decoration none
+    display inline-block
+    font-size 16px
 
 button:hover
 		background $dark
 
+
 label {
     display: inline-block; // to make it easier to click
-    // color: #fff;
-    cursor: pointer;
+  cursor: pointer;
     position: relative; // important
   
-    // Now we'll create the checkbox object  
+    // create the checkbox object  
     span {
       display: inline-block;
       position: relative;
@@ -32,17 +32,16 @@ label {
       margin-right: 10px;
       transition: background-color 150ms 200ms, transform 350ms cubic-bezier(.78,-1.22,.17,1.89); // custom ease effect for bouncy animation
   
-    // Now we'll create the "tick" using pseudo elements - those will be basically two lines that will be rotated to form the "tick"
+    // create "tick" using pseudo elements - basically two lines rotated
     &:before {
       content: "";
       width: 0px;
       height: 2px;
-      // border-radius: 5px; // so that the tick has nice rounded look
       background: $lightest;
       position: absolute;
       transform: rotate(45deg);
-      top: 10px; // you'll need to experiment with placement depending on the dimensions you've chosen
-      left: 7px; // you'll need to experiment with placement depending on the dimensions you've chosen
+      top: 10px; // tweak!
+      left: 7px; // tweak!
       transition: width 50ms ease 50ms
       transform-origin: 0% 0%;
     }
@@ -51,12 +50,11 @@ label {
       content: "";
       width: 0;
       height: 2px;
-      // border-radius: 2px; // so that the tick has nice rounded look
       background: $lightest
       position: absolute;
       transform: rotate(305deg);
-      top: 14px; // you'll need to experiment with placement depending on the dimensions you've chosen
-      left: 9px; // you'll need to experiment with placement depending on the dimensions you've chosen
+      top: 14px; // tweak!
+      left: 9px; // tweak!
       transition: width 50ms ease;
       transform-origin: 0% 0%;
     }
@@ -78,9 +76,9 @@ label {
 }
 
 input[type="checkbox"], input[type="radio"] {
-    display: none; // hide the system checkbox
+  display: none; // hide the system checkbox
   
-  // Let's add some effects after the checkbox is checked
+  // add some effects after the checkbox is checked
   &:checked {
     + label {
       span {
@@ -107,7 +105,7 @@ input[type="checkbox"], input[type="radio"] {
           transform: scale(1.15); // enlarge the box
 
           &:after {
-            width: 10px;
+            width: 10px
             background $green
             transition: width 150ms ease 100ms; // enlarge the tick
           }
@@ -122,6 +120,3 @@ input[type="checkbox"], input[type="radio"] {
     }
   }
 }
-
-input[type="radio"]
-		border-radius 20px

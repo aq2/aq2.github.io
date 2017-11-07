@@ -100,9 +100,6 @@ input[type="radio"]:checked + label:hover span:before {
   background: #9ab446;
   transition: width 150ms ease 100ms;
 }
-input[type="radio"] {
-  border-radius: 20px;
-}
 #exTable {
   color: #111f2b;
   border-collapse: collapse;
@@ -193,12 +190,6 @@ transition border-radius 2s ease 1.5s {
 }
 .darkest {
   background: #1c3448;
-}
-.hidden {
-  display: none;
-}
-.darkBorder {
-  border: 5px #1c3448 solid;
 }
 .border {
   border: 5px #9ab446 solid;

@@ -61,7 +61,6 @@ function gotFile(file) {
   // show example data table
   select('#critBox')
     .html('select rankable criteria using the table below')
-    .removeClass('trans')
     .style('visibility', 'visible')
 
   select('#exTableDiv')
