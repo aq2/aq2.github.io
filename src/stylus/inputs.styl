@@ -30,7 +30,7 @@ label {
       border: 2px solid $darker;
       vertical-align: -6px;
       margin-right: 10px;
-      transition: background-color 150ms 200ms, transform 350ms cubic-bezier(.78,-1.22,.17,1.89); // custom ease effect for bouncy animation
+      transition: background-color 150ms 80ms, transform 100ms
   
     // create "tick" using pseudo elements - basically two lines rotated
     &:before {
@@ -64,12 +64,12 @@ label {
     span {
       &:before {
         width: 5px;
-        transition: width 100ms ease;
+        transition: width 80ms ease;
       }
       
       &:after {
         width: 10px;
-        transition: width 150ms ease 100ms;
+        transition: width 100ms ease 50ms;
       }
     }
   }
@@ -88,13 +88,13 @@ input[type="checkbox"], input[type="radio"] {
         &:after {
           width: 10px;
           background: $brown;
-          transition: width 150ms ease 100ms; // enlarge the tick
+          transition: width 80ms ease 50ms; // enlarge the tick
         }
         
         &:before {
           width: 5px;
           background: $brown;
-          transition: width 150ms ease 100ms; // enlarge the tick
+          transition: width 80ms ease 50ms; // enlarge the tick
         }
       }
       
@@ -107,13 +107,13 @@ input[type="checkbox"], input[type="radio"] {
           &:after {
             width: 10px
             background $green
-            transition: width 150ms ease 100ms; // enlarge the tick
+            transition: width 80ms ease 50ms; // enlarge the tick
           }
 
           &:before {
             width: 5px;
             background: $green
-            transition: width 150ms ease 100ms; // enlarge the tick
+            transition: width 80ms ease 50ms; // enlarge the tick
           }
         }  
       }

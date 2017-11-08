@@ -1,15 +1,96 @@
-// candy constructor !!
-function Candy(candidate, x, y, nPeers, parentDiv) {
-  // console.log('candy created')
-  
-  this.candidate = candidate
-  this.x = x
+/*
+    candyFront contains an array candyRows
+    each cRow contains an array of candies
+    put each candy into the row until it gets too long
+    start filling up next row until all candys are used up
+    result: cRow1 = [first lot of candidates]
+            cRow2 = [second lot of candidates] etc...
+*/
+function CandyFront(peers, paretoId, y) {
+  this.peers = peers          //  all IDs of candys in front  
+  this.paretoId = paretoId
   this.y = y
-  this.nPeers = nPeers
-  this.parentDiv = parentDiv
+  this.candyRows = []
+  this.peersL = peers.length
 
-  // this.parent(parentDiv)
 
+  let canvasW = windowWidth-50   // magic
+  let minSpacing = 10  // min candy spacing - don't want them too squeezed up
+  let candidates = G_D.candidates
+  let p, pId, peer, candy
+  let rowsSoFar = 0, widthSoFar = 0
+
+  // recieves a front of peers
+  // decides how many rows needed, of full width or target width 
+  // for each row, lay them out at correct y, and animate?
+
+  let rowDiv = createDiv('')
+                .id('row' + rowsSoFar)
+                .parent('#paretoDiv')
+                .class('slider')
+  
+    // why is row so narrow?
+    let rowSize = rowDiv.size()
+    let rowH = rowSize.height
+    let rowW = rowSize.width
+    console.log('h, w', rowH, rowW)
+    
+
+  for (p=0; p<this.peersL; p++) {
+    pId = peers[p]
+    peer = candidates[pId]
+
+    candy = new Candy(peer, rowDiv)
+    widthSoFar += candy.candyWidth
+  }
+  console.log('wSF', widthSoFar)
+
+  if (widthSoFar < canvasW) {
+    let margin = calcMargin(minSpacing, canvasW)
+    changeWidth(margin)
+  }
+
+}
+
+
+function CandyRow() {
+
+}
+
+
+
+// // returns rows?
+// function bucketFill(peers, minSpacing, canvasW) {
+//   // recieves peers of unknown width
+//   // splits into individual rows (objects) of target width
+
+//   // calc canvasW, sigmaW, delta, spacing, peersL
+
+//   // plonk them all down, measure width
+
+//   let p, peer, peersL = peers.length, pId, widthSoFar = 0
+//   let candidates = G_D.candidates
+
+//   for (p=0; p<peersL; p++) {
+//     pId = peers[p]
+//     peer = candidates[pId]
+
+//     candy = new Candy(peer)
+//     // candy.display()
+//     candyW = candy.candyWidth
+//     // console.log('cW', candyW)
+    
+//     widthSoFar += candyW
+//   }
+//   console.log('wSF', widthSoFar)
+
+// }
+
+
+function Candy(candidate, parentRow) {
+  this.candidate = candidate
+  // this.parentRow = parentRow
+  // this.parentDiv = parentDiv
   this.id = candidate.key
   this.front = candidate.front
 
@@ -17,56 +98,19 @@ function Candy(candidate, x, y, nPeers, parentDiv) {
   let idField = G_D.catData.idCat
   let fieldName =  G_D.catData.cats[idField]
   this.name = candidate[fieldName]
-
-  // todo too many this-es?
-  this.showName = () => {
-    console.log('this name ', this.name)
-  }
-
-  this.display = () => {
-    // console.log('display')
-    
-    this.textSize = 12
-    this.newSpan = createSpan(this.name)
+  
+  // p5 element - access DOM elt by .elt
+  let spanner = createSpan(this.name)    
                   .id('candy' + this.id)
                   .addClass('candy')
-                  .parent(this.candyRowObj)
-                  .position(this.x, this.y)
-                  .mousePressed(this.showName)
-                  .mouseOut(this.clearTooltip)
-                  .mouseOver(this.showTooltip)
+                  .parent(parentRow)
 
-    this.span = select('#candy' + this.id)
-                .parent(select('#paretoDiv'))
-
-    this.siz = this.span.size()
-    this.candyWidth = this.newSpan.offsetWidth
-
-    this.candyWidth = document.getElementById('candy'+this.id).offsetWidth
-
-
-
-    // this.textSize = (windowWidth-500)/9/this.nPeers
-    // if (this.textSize > 24) {
-    //   this.textSize = 24
-    // }    
-
-    this.span.style('font-size', this.textSize + 'pt')
-  }
-
-  this.showTooltip = () => {
-    // todo rank and nss shouldnae be hard-coded
-    let text = this.name
-
-    this.tooltip = createSpan(text)
-                    .addClass('tooltip')
-                    .position(this.x + this.candyWidth + 5, this.y)
-                
-      return false
-  }
   
-  this.clearTooltip = () => {
-    //
-    this.tooltip.remove()
-  } 
+  this.candyWidth = spanner.elt.offsetWidth
+
+
+
+  console.log('cW', this.candyWidth)
+    
+ 
 }

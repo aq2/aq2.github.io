@@ -211,7 +211,7 @@ function getViz() {
   for (viz of G_D.vizTypes) {
     createButton(viz)
       .mousePressed(getButton(viz))
-      .parent('#chooseViz')
+      .parent('#chooseViz') // qq
   }
 
 

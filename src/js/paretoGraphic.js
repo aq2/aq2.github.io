@@ -60,32 +60,35 @@ function drawPareto() {
       canvasW = windowWidth-50,   // magic
       canvasH = windowHeight-160,
       nodeHeight = 32,            // based on span textsize?
-      frontH,
+      frontH, mainDiv,
       f, x, y, c,
-      currentFront, currentFrontLength,
+      peers, peersLength,
       widthSoFar = 0, // width of candies in a row
-      candy, candidate, candyRow,
+      candy, candidate, candyRow, candyFronts=[],
       foo
 
-
-  // setup 'canvas'
-  
   // console.groupCollapsed('drawPareto')
   //   console.log(G_D)
   // console.groupEnd()
   
-  // remove div if already exists
+  // mainDiv = document.getElementsByTagName('main')
+  // console.log('mD', mainDiv)
+  
+
+  // remove 'canvas' div if already exists
   if (!(paretoDiv == select('#paretoDiv'))) {
     removePareto()
-  } 
+  }
+
+  let graphicDiv = select('#graphicDiv')
   
-  // create parent div to hold candy 'nodes'
+  // create parent div to hold candy fronts which have rows, which have'nodes'
   paretoDiv = createDiv('')
                 .id('paretoDiv')
-                .position(0,150)  // magic //todo proper grid!
+                .position(0,200)  // magic //todo proper grid!
                 .size(canvasW, canvasH)
+                .parent(graphicDiv)
   //
-  
 
   // divide canvas into rows for each front
   // might have to do similar remargining trick for rows?
@@ -93,49 +96,46 @@ function drawPareto() {
   frontH = Math.floor(canvasH / nFronts)
   // console.log(nFronts, canvasH, frontH)
   
+  // we're going to need a candyRow for each front,
+  // may as well stick them in candyRows[]
 
-  // draw each row/front
+  // // for each front! qq
   for (f=0; f<1; f++) {
-  // for (f=0; f<nFronts; f++) {  // qq
-    widthSoFar = 0
-    currentFront = fronts[f]
-    // console.log('front', f, currentFront)
-    currentFrontLength = currentFront.length
-
-    candyRow = createDiv()
-               .id('candyRow' + f)
-    let candyRowObj = select('#candyRow'+f)
-
-    for (c=0; c<currentFrontLength; c++) {   // each c will be a candidate id
-      let candID = currentFront[c]
-      candidate = G_D.candidates[candID]
-      
-      x = widthSoFar
-      // y = nodeHeight * (f+1) //
-      y = f * canvasH / nFronts
-      candy = new Candy(candidate, x, y, currentFrontLength, candyRowObj)
-      candy.display()
-      widthSoFar += candy.candyWidth
-      // console.log('candidate', candID, candy.name)
-   }
-
-   // assuming row doesn't need splitting up
-
-
+    peers = fronts[f]
+    candyFronts[f] = new CandyFront(peers, f, f*frontH)
   }
 
 
+
+    // // draw each row/front
+    // for (f=0; f<1; f++) {
+    // // for (f=0; f<nFronts; f++) {  // qq
+    //   widthSoFar = 0
+    //   peers = fronts[f]
+    //   // console.log('front', f, currentFront)
+    //   peersL = peers.length
+
+    //   candyRow = createDiv()
+    //              .id('candyRow' + f)
+    //   let candyRowObj = select('#candyRow'+f)
+
+    //   for (c=0; c<peersL; c++) {   // each c will be a candidate id
+    //     let candID = peers[c]
+    //     candidate = G_D.candidates[candID]
+        
+    //     x = widthSoFar
+    //     // y = nodeHeight * (f+1) //
+    //     y = f * canvasH / nFronts
+    //     candy = new Candy(candidate, x, y, peersL, candyRowObj)
+    //     candy.display()
+    //     widthSoFar += candy.candyWidth
+    //     // console.log('candidate', candID, candy.name)
+    //  }
+
+    // assuming row doesn't need splitting up
+    // }
+
 }
-
-
-
-
-
-
-
-
-
-
 
 
 function removePareto() {
@@ -144,4 +144,35 @@ function removePareto() {
 }
 
 
+function calcMargin(minSpacing, canvasW) {
+  let span,
+    sigmaW = 0,
+    spacing,
+    margin,
+    mySpans = document.getElementsByTagName("span"),
+    spansN = mySpans.length
 
+    // qq mySpans should only get spans in this row
+    mySpans = document.getElementById('row0').getElementsByTagName('span')
+    
+  for (span of mySpans) {
+    sigmaW += span.offsetWidth
+  }
+
+  spacing = (canvasW - sigmaW) / mySpans.length
+  margin = spacing / 2; // - 0.05
+
+  console.log('cW, sW, sp, ma, sn', canvasW, sigmaW, spacing, margin, spansN)
+  
+  return margin
+}
+
+function changeWidth(margin) {
+  let i = 0,
+    mySpans = document.getElementsByTagName("span"),
+    length = mySpans.length
+
+  for (i; i < length; i++) {
+    mySpans[i].setAttribute("style", "margin: 0 " + margin + "px")
+  }
+}
