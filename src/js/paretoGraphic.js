@@ -64,15 +64,15 @@ function drawPareto() {
       f, x, y, c,
       currentFront, currentFrontLength,
       widthSoFar = 0, // width of candies in a row
-      candy, candidate,
+      candy, candidate, candyRow,
       foo
 
 
   // setup 'canvas'
   
-  console.groupCollapsed('drawPareto')
-    console.log(G_D)
-  console.groupEnd()
+  // console.groupCollapsed('drawPareto')
+  //   console.log(G_D)
+  // console.groupEnd()
   
   // remove div if already exists
   if (!(paretoDiv == select('#paretoDiv'))) {
@@ -95,11 +95,16 @@ function drawPareto() {
   
 
   // draw each row/front
-  for (f=0; f<nFronts; f++) {
+  for (f=0; f<1; f++) {
+  // for (f=0; f<nFronts; f++) {  // qq
     widthSoFar = 0
     currentFront = fronts[f]
-    console.log('front', f, currentFront)
+    // console.log('front', f, currentFront)
     currentFrontLength = currentFront.length
+
+    candyRow = createDiv()
+               .id('candyRow' + f)
+    let candyRowObj = select('#candyRow'+f)
 
     for (c=0; c<currentFrontLength; c++) {   // each c will be a candidate id
       let candID = currentFront[c]
@@ -108,11 +113,14 @@ function drawPareto() {
       x = widthSoFar
       // y = nodeHeight * (f+1) //
       y = f * canvasH / nFronts
-      candy = new Candy(candidate, x, y, currentFrontLength)
+      candy = new Candy(candidate, x, y, currentFrontLength, candyRowObj)
       candy.display()
       widthSoFar += candy.candyWidth
-      console.log('candidate', candID, candy.name)
+      // console.log('candidate', candID, candy.name)
    }
+
+   // assuming row doesn't need splitting up
+
 
   }
 
@@ -136,70 +144,4 @@ function removePareto() {
 }
 
 
-// candy constructor !!
-function Candy(candidate, x, y, nPeers) {
-  // console.log('candy created')
-  
-  this.candidate = candidate
-  this.x = x
-  this.y = y
-  this.nPeers = nPeers
 
-  this.id = candidate.key
-  this.front = candidate.front
-
-  // todo yuck
-  let idField = G_D.catData.idCat
-  let fieldName =  G_D.catData.cats[idField]
-  this.name = candidate[fieldName]
-
-  // todo too many this-es?
-  this.showName = () => {
-    console.log('this name ', this.name)
-  }
-
-  this.display = () => {
-    // console.log('display')
-    
-    this.textSize = 12
-    this.newSpan = createSpan(this.name)
-                  .id('candy' + this.id)
-                  .addClass('candy')
-                  .position(this.x, this.y)
-                  .mousePressed(this.showName)
-                  .mouseOut(this.clearTooltip)
-                  .mouseOver(this.showTooltip)
-
-    this.span = select('#candy' + this.id)
-                .parent(select('#paretoDiv'))
-
-    this.siz = this.span.size()
-    this.candyWidth = this.newSpan.offsetWidth
-
-    this.candyWidth = document.getElementById('candy'+this.id).offsetWidth
-
-
-    // this.textSize = (windowWidth-500)/9/this.nPeers
-    // if (this.textSize > 24) {
-    //   this.textSize = 24
-    // }    
-
-    this.span.style('font-size', this.textSize + 'pt')
-  }
-
-  this.showTooltip = () => {
-    // todo rank and nss shouldnae be hard-coded
-    let text = this.name
-
-    this.tooltip = createSpan(text)
-                    .addClass('tooltip')
-                    .position(this.x + this.candyWidth + 5, this.y)
-                
-      return false
-  }
-  
-  this.clearTooltip = () => {
-    //
-    this.tooltip.remove()
-  } 
-}
