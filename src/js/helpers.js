@@ -34,6 +34,7 @@ function restoreData(data) {
 
 
 
+
 // pinched from interwebs
 function deepClone(o) {
    var output, v, key
@@ -45,6 +46,7 @@ function deepClone(o) {
    return output
 }
 
+// todo replace with makeButton
 function makeOKButton(parentId, callback) {
   createButton('OK')
     .parent(select(parentId)) // qq
@@ -52,3 +54,8 @@ function makeOKButton(parentId, callback) {
 }
 
 
+// function makeButton(label, parentId, callback) {
+//   createButton(label)
+//     .parent(select(parentId)) // qq
+//     .mousePressed(callback)
+// }

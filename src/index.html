@@ -9,44 +9,54 @@
 </head>
 <body>
 
-  <header>
-    <h1>data viz exercise</h1>
-  </header>
+<aside>
+  <h1>data viz</h1>
+  <div>dropzone</div>
+  <div>categories</div>
+  <div>vizType</div>
+</aside>
 
-  <div id='toolbar'>
-    <div id='dz' class='floater widest'>
-      <div id='dzInstructions'>
+<main>
+  <div id='dz' class='floater widest'>
+    <h1 id='dzInstructions'>
         drag and drop data file here 
-      </div>
-      <div id='dzText'>
+    </h1>
+    <div id='dzText'>
         - must be text (eg csv)
-      </div>
-      <div id='dzSize'>
-        - and less than 10kB
-      </div>
     </div>
-  
-    <div id='critBox' class='floater invizbl wide'>
-      <!-- select rankable criteria using the table below -->
+    <div id='dzSize'>
+      - and less than 10kB
     </div>
-  
-    <div id='chooseViz' class='floater invizbl wide'>
-    </div>
-
-    <div class="clearbox"></div>
-  </div>
-
-  <div id='graphicDiv'>
+    or choose a data file from your computer
+    <span id="browse">
+      <!-- <input type="file" id='browseFile' onclick=gotFile()> -->
+      <input type="file" id='browseFile' 
+        accept=".csv, text/csv" onchange=gotFile(this.files[0])>
+    </span>
+    or use one of these
+    <div id="dzFiles"></div>
+ </div>
+ 
+ <div id='critBox' class='floater invizbl wide'>
+   <!-- select rankable criteria using the table below -->
+ </div>
+    
+ <div id='chooseViz' class='floater invizbl wide'>
+ </div>
+    
+ <div class="clearbox"></div>
+ <div id='graphicDiv'>
     <div id='exTableDiv' class='border invizbl'>
       <table id='exTable'></table>
     </div>
-  </div>
- 
-  <script src='js/helpers.js'></script>
-  <script src='js/get_file.js'></script>
-  <script src='js/example_table.js'></script>
-  <script src='js/pareto.js'></script>
-  <script src='js/paretoGraphic.js'></script>
-  <script src='js/constructors.js'></script>
+
+</main>
+
+<script src='js/helpers.js'></script>
+<script src='js/get_file.js'></script>
+<script src='js/example_table.js'></script>
+<script src='js/pareto.js'></script>
+<script src='js/paretoGraphic.js'></script>
+<script src='js/constructors.js'></script>
 </body>
 </html>

@@ -1,12 +1,15 @@
 button
     background-color $darker
-    border none
+    border 1px $green solid
     color $lightest
     padding 8px
     text-align center
     text-decoration none
-    display inline-block
+    // display inline-block
     font-size 16px
+    height 2.5em
+    // width auto
+    margin 8px
 
 button:hover
 		background $dark
@@ -120,3 +123,7 @@ input[type="checkbox"], input[type="radio"] {
     }
   }
 }
+
+input[type='file']
+  border 1px $green solid
+  margin 6px 0 24px 0

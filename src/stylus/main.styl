@@ -2,19 +2,48 @@
 @import 'inputs'
 @import 'exampleTable'
 
+body, html
+    height: 100%
+    margin 0
+    padding 0
  
 body 
-	color: $gray;
-	background: $mainColour;
-	font-family: Helvetica, Arial, sans-serif
+    color: #9a9
+    background: $mainColour
+    display: flex
+    font-family: Helvetica, Arial, sans-serif
+   
+
+aside
+    width: 150px
+    background #343f44
+    // height 100%
+
+main 
+    // height: 100%;
+
+h1 
+    margin 0
 
 
 #dz, #critBox, #chooseViz, #dzText
- 	padding 8px
- 	transition width .5s, background .5s
-	transition border-radius 2s ease 1.5s
-	transition visibility .5s
+     padding 8px
+     transition width .5s, background .5s
+    transition border-radius 2s ease 1.5s
+    transition visibility .5s
 
+
+#dz
+    display: flex
+    flex-direction column
+    justify-content center
+    font-size 24px
+
+    #browse 
+        // margin-top 50px
+
+    #dzSize 
+        margin-bottom 24px
 
 #paretoDiv
     // background $pink
@@ -24,16 +53,16 @@ span
     border-radius 5px
  
 .floater 
-  	float left
-  	margin-right 20px 
+      float left
+      margin-right 20px 
  
 .clearbox
-  	clear: left
+      clear: left
 .vizbl
-	visibility: visible
+    visibility: visible
 
 .invizbl
-	visibility hidden
+    visibility hidden
 //
 
 .narrow 
@@ -46,7 +75,7 @@ span
     width 400px
     border-radius 0
     border 5px solid $green
-    background $lighter
+    // background $lighter
     min-height 40px
     text-align center
 
@@ -55,7 +84,7 @@ span
     width 600px
     border-radius 0
     border 5px solid $green
-    background $lighter
+    // background $lighter
     min-height 40px
     text-align center
  
@@ -88,11 +117,11 @@ span
     color $green
 
 .candy 
-  	background $brown
-  	padding 4px
-  	// margin 0
-  	border solid 1px $darker
-  	border-radius 10px
+      background $brown
+      padding 4px
+      // margin 0
+      border solid 1px $darker
+      border-radius 10px
     transition margin 2s easeOut
 
 .tooltip

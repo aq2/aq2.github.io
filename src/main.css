@@ -1,12 +1,13 @@
 button {
   background-color: #161c1f;
-  border: none;
+  border: 1px #9ab446 solid;
   color: #9bb0ba;
   padding: 8px;
   text-align: center;
   text-decoration: none;
-  display: inline-block;
   font-size: 16px;
+  height: 2.5em;
+  margin: 8px;
 }
 button:hover {
   background: #1d262a;
@@ -100,6 +101,10 @@ input[type="radio"]:checked + label:hover span:before {
   background: #9ab446;
   transition: width 80ms ease 50ms;
 }
+input[type='file'] {
+  border: 1px #9ab446 solid;
+  margin: 6px 0 24px 0;
+}
 #exTable {
   color: #080b0d;
   border-collapse: collapse;
@@ -123,10 +128,24 @@ input[type="radio"]:checked + label:hover span:before {
   text-align: center;
   border: 0 none;
 }
+body,
+html {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
 body {
-  color: #112;
+  color: #9a9;
   background: #242f34;
+  display: flex;
   font-family: Helvetica, Arial, sans-serif;
+}
+aside {
+  width: 150px;
+  background: #343f44;
+}
+h1 {
+  margin: 0;
 }
 #dz,
 #critBox,
@@ -137,6 +156,15 @@ body {
 }
 transition border-radius 2s ease 1.5s {
   transition: visibility 0.5s;
+}
+#dz {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  font-size: 24px;
+}
+#dz #dzSize {
+  margin-bottom: 24px;
 }
 span {
   transition: 2s;
@@ -165,7 +193,6 @@ span {
   width: 400px;
   border-radius: 0;
   border: 5px solid #9ab446;
-  background: #698997;
   min-height: 40px;
   text-align: center;
 }
@@ -173,7 +200,6 @@ span {
   width: 600px;
   border-radius: 0;
   border: 5px solid #9ab446;
-  background: #698997;
   min-height: 40px;
   text-align: center;
 }
@@ -208,16 +234,16 @@ span {
   background: #b45d46;
   padding: 4px;
   border: solid 1px #161c1f;
+  border-radius: 10px;
 }
-.candy border-radius 10px {
-  transition: margin 2s easeOut;
-}
+transition margin 2s easeOut,
 .tooltip {
   background: #b44669;
   padding: 2px;
   border: dashed 2px #0e1315;
   border-radius: 10px;
 }
+transition margin 2s easeOut .slider,
 .tooltip .slider {
   font-size: 0px;
 }
