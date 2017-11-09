@@ -24,17 +24,13 @@ function CandyFront(peers, paretoId, y) {
   // decides how many rows needed, of full width or target width 
   // for each row, lay them out at correct y, and animate?
 
+
   let rowDiv = createDiv('')
                 .id('row' + rowsSoFar)
                 .parent('#paretoDiv')
                 .class('slider')
   
-    // why is row so narrow?
-    let rowSize = rowDiv.size()
-    let rowH = rowSize.height
-    let rowW = rowSize.width
-    console.log('h, w', rowH, rowW)
-    
+       
 
   for (p=0; p<this.peersL; p++) {
     pId = peers[p]
@@ -45,7 +41,9 @@ function CandyFront(peers, paretoId, y) {
   }
   console.log('wSF', widthSoFar)
 
+
   if (widthSoFar < canvasW) {
+    // then it's only one row    
     let margin = calcMargin(minSpacing, canvasW)
     changeWidth(margin)
   }

@@ -107,34 +107,6 @@ function drawPareto() {
 
 
 
-    // // draw each row/front
-    // for (f=0; f<1; f++) {
-    // // for (f=0; f<nFronts; f++) {  // qq
-    //   widthSoFar = 0
-    //   peers = fronts[f]
-    //   // console.log('front', f, currentFront)
-    //   peersL = peers.length
-
-    //   candyRow = createDiv()
-    //              .id('candyRow' + f)
-    //   let candyRowObj = select('#candyRow'+f)
-
-    //   for (c=0; c<peersL; c++) {   // each c will be a candidate id
-    //     let candID = peers[c]
-    //     candidate = G_D.candidates[candID]
-        
-    //     x = widthSoFar
-    //     // y = nodeHeight * (f+1) //
-    //     y = f * canvasH / nFronts
-    //     candy = new Candy(candidate, x, y, peersL, candyRowObj)
-    //     candy.display()
-    //     widthSoFar += candy.candyWidth
-    //     // console.log('candidate', candID, candy.name)
-    //  }
-
-    // assuming row doesn't need splitting up
-    // }
-
 }
 
 
@@ -160,7 +132,7 @@ function calcMargin(minSpacing, canvasW) {
   }
 
   spacing = (canvasW - sigmaW) / mySpans.length
-  margin = spacing / 2; // - 0.05
+  margin = Math.floor(spacing / 2) // - 0.05
 
   console.log('cW, sW, sp, ma, sn', canvasW, sigmaW, spacing, margin, spansN)
   
