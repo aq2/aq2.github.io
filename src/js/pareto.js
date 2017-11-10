@@ -15,9 +15,6 @@ function findParetoFronts() {                   // eslint-disable-line
   // console.groupCollapsed('pareto')
   //   console.log('cats ' + categories)
   //   console.table(candidates)
-  //   console.log(catData)
-  //   console.log('candsLeft: ')
-  //   console.table(candsLeft)
   // console.groupEnd()
 
   // todo rename all these variables!

@@ -72,9 +72,11 @@ function drawPareto() {
       candy, candidate, candyRow, candyFronts=[],
       foo
 
-  // console.groupCollapsed('drawPareto')
-  //   console.log(G_D)
-  // console.groupEnd()
+  console.groupCollapsed('drawPareto')
+    console.table(G_D.candidates)
+    console.log('f', fronts)
+    
+  console.groupEnd()
   
   // mainDiv = document.getElementsByTagName('main')
   // console.log('mD', mainDiv)

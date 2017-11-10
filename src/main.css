@@ -273,15 +273,15 @@ span {
   padding: 4px;
   border: solid 1px #161c1f;
   border-radius: 10px;
+  transition: margin 2s easeOut;
+  color: #0e1315;
 }
-transition margin 2s easeOut,
 .tooltip {
   background: #b44669;
   padding: 2px;
   border: dashed 2px #0e1315;
   border-radius: 10px;
 }
-transition margin 2s easeOut .slider,
 .tooltip .slider {
   font-size: 0px;
 }
