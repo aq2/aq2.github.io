@@ -48,12 +48,15 @@ function makeExampleTableHtml(data) {
   myHtml += "<tr id='minmaxRow'></tr>"
   myHtml += "<tr id='idRow'></tr>"
 
+  // let measRow = $('#measRow')
+  //               .addClass('throbit')
   return myHtml
 }
 
 
 // rankables click handler
 function getRankables() {
+
   let i = 0,
       catLength = G_D.catData.cats.length
   
@@ -70,7 +73,9 @@ function getRankables() {
     return false
   }
 
-  select('#measRow').class('dark')
+  select('#measRow')
+    .addClass('dark')
+    .removeClass('throbit')
 
   getMaxis()
 }
@@ -98,7 +103,8 @@ function getMaxis() {
 
   select('#minmaxRow')
     .html(html)
-    .class('light')
+    .addClass('light')
+    .addClass('throbit')
 
   makeOKButton('#minmaxBtnPos', getID)
 }
@@ -113,8 +119,13 @@ function getID() {
   $('#idInst').show()
     .position(180, 65)
 
-  select('#minmaxRow').class('dark')
-  select('#idRow').class('light')
+  select('#minmaxRow')
+  .addClass('dark')
+  .removeClass('throbit')
+
+  select('#idRow')
+    .addClass('light')
+    .addClass('throbit')
 
   // for each category max checkbox, add to maxis[] if checked, and build iD row
   for (i; i<length; i++) {
@@ -193,10 +204,10 @@ function getViz() {
     .position(180, 65)
 
   select('#chooseViz')
-    .removeClass('invizbl')
-    .addClass('vizbl')
+    .show()
     .html(html)
     .position(200, 300)
+    .addClass('throbit')
   
   for (viz of G_D.vizTypes) {
     createButton(viz)

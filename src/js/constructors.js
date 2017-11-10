@@ -13,7 +13,6 @@ function CandyFront(peers, paretoId, y) {
   this.candyRows = []
   this.peersL = peers.length
 
-
   let canvasW = windowWidth-50   // magic
   let minSpacing = 10  // min candy spacing - don't want them too squeezed up
   let candidates = G_D.candidates
@@ -23,7 +22,6 @@ function CandyFront(peers, paretoId, y) {
   // recieves a front of peers
   // decides how many rows needed, of full width or target width 
   // for each row, lay them out at correct y, and animate?
-
 
   let rowDiv = createDiv('')
                 .id('row' + rowsSoFar)
@@ -42,11 +40,11 @@ function CandyFront(peers, paretoId, y) {
   console.log('wSF', widthSoFar)
 
 
-  if (widthSoFar < canvasW) {
-    // then it's only one row    
-    let margin = calcMargin(minSpacing, canvasW)
-    changeWidth(margin)
-  }
+  // if (widthSoFar < canvasW) {
+  //   // then it's only one row    
+  //   let margin = calcMargin(minSpacing, canvasW)
+  //   changeWidth(margin)
+  // }
 
 }
 

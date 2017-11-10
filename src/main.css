@@ -218,18 +218,9 @@ transition border-radius 2s ease 1.5s {
 #dz #dzSize {
   margin-bottom: 24px;
 }
-.floater {
-  float: left;
-  margin-right: 20px;
-}
-.clearbox {
-  clear: left;
-}
-.vizbl {
-  visibility: visible;
-}
-.invizbl {
-  visibility: hidden;
+span {
+  transition: 2s;
+  border-radius: 5px;
 }
 .narrow {
   width: 80px;

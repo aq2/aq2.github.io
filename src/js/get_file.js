@@ -20,8 +20,8 @@ function setup() {   // eslint-disable-line
    .position(180, 65)
   
   $('#browseFile')
-    .addClass('throbit')
 
+    .addClass('throbit')
   $('#browseLabel')
     .addClass('throbit')
 
@@ -36,6 +36,9 @@ function setup() {   // eslint-disable-line
   
   $('#idInst')
     .hide() 
+
+  $('#chooseViz')
+    .hide()
 
   $('#vizInst')
     .hide() 
@@ -93,9 +96,11 @@ function gotFile(filedata) {
 
   select('#exTable')
     .html(tableHtml)
+    // .addClass('throbit')
 
   select('#measRow')
-    .addClass('light')   
+    .addClass('light')
+    .addClass('throbit')
  
  //qq - great callback example - could actually pass data here for less spaghetti
   makeOKButton('#catBtnPos', getRankables)

@@ -6,7 +6,7 @@ function drawParetoOLD() {
       fronts = G_D.fronts,
       nFronts = fronts.length,
       cands = G_D.candidates,
-      canvasW = windowWidth-50,
+      canvasW = windowWidth-150,   // take into account sidebar
       canvasH = windowHeight-210,
       nodeHeight = floor(canvasH/nFronts)/2,
       cId, 
@@ -25,11 +25,16 @@ function drawParetoOLD() {
     removePareto()
   } 
 
+  let graphicDiv = $('#graphicDiv')
+    .position(150, 150)
+    .size(canvasW, canvasH)
+
   // create parent div to hold candy 'nodes'
   paretoDiv = createDiv('')
         .id('paretoDiv')
-        .position(0,150)  // todo magic numbers
+        .position(160,150)  // todo magic numbers
         .size(canvasW, canvasH)
+        .parent('#graphicDiv')
   //
   
   // loop over each front and display candies
@@ -100,7 +105,7 @@ function drawPareto() {
   // may as well stick them in candyRows[]
 
   // // for each front! qq
-  for (f=0; f<1; f++) {
+  for (f=0; f<nFronts; f++) {
     peers = fronts[f]
     candyFronts[f] = new CandyFront(peers, f, f*frontH)
   }
