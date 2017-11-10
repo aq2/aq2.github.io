@@ -6,7 +6,11 @@ function findParetoFronts() {                   // eslint-disable-line
       freshCands =addEmptyDominanceData(candidates),
       fronts = []
 
-      // let G_D.fronts = []
+  $('#vizInst')
+    .hide()
+
+  $('#chooseViz')
+    .hide()
   
   // console.groupCollapsed('pareto')
   //   console.log('cats ' + categories)

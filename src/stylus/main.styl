@@ -8,22 +8,72 @@ body, html
     padding 0
  
 body 
-    color: #9a9
+    color: #999
     background: $mainColour
     display: flex
     font-family: Helvetica, Arial, sans-serif
+    font-size 16px
    
 
 aside
     width: 150px
     background #343f44
-    // height 100%
+    text-align center
+
+aside  div
+    padding 0px 10px
+    // border-bottom 1px solid $green
 
 main 
     // height: 100%;
 
+#dfile 
+   width 100px
+   margin 0 auto 
+
+.greenborder
+    border 2px solid $green
+    // animation flash linear 2s infinite
+    
+
+.flashborder
+    border 2px solid $lighter
+
+.darkborder
+    border 2px solid $darkest
+
+/* Flash class and keyframe animation */
+.flashit
+    color $green
+    animation flash linear 2s infinite
+    font-size 24px
+    // border 1px solid $green
+
+.throbit
+    border 2px solid $green
+    animation throb linear 2s infinite
+    
+
+@keyframes flash
+    0% { opacity: 1; } 
+    50% { opacity: .2 } 
+    100% { opacity: 1; }
+
+@keyframes throb
+    0% { border-color: $green } 
+    50% { border-color: $dark } 
+    100% { border-color: $green }
+
+
+.raised
+    padding-bottom 16px
+
+
 h1 
-    margin 0
+    font-size 3rem
+    margin 10px 0
+
+
 
 
 #dz, #critBox, #chooseViz, #dzText
@@ -48,9 +98,9 @@ h1
 #paretoDiv
     // background $pink
 
-span
-    transition 2s
-    border-radius 5px
+// span
+//     transition 2s
+//     border-radius 5px
  
 .floater 
       float left
@@ -83,7 +133,7 @@ span
 .widest
     width 600px
     border-radius 0
-    border 5px solid $green
+    // border 5px solid $green
     // background $lighter
     min-height 40px
     text-align center

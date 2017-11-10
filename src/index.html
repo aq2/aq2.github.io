@@ -10,37 +10,55 @@
 <body>
 
 <aside>
-  <h1>data viz</h1>
-  <div>dropzone</div>
-  <div>categories</div>
-  <div>vizType</div>
+  <h2>data viz</h1>
+  <div id='dfile'>
+    <input type="file" id='browseFile' accept=".csv, text/csv">
+    <label id='browseLabel' for='browseFile'>data file...</label>
+  </div>
+  <div id='cats'>
+    categories
+  </div>
+  <div id='viz'>vizType</div>
 </aside>
 
 <main>
-  <div id='dz' class='floater widest'>
-    <h1 id='dzInstructions'>
-        drag and drop data file here 
-    </h1>
-    <div id='dzText'>
-        - must be text (eg csv)
+  <div id='instruct' class=''>
+    <div id='dataInst'>
+      <h1>1. choose a data file from your computer</h1>
+      <h2>must be CSV format</h2>
+      <h2>with criteria headers as first row, eg:</h2>
+      <pre>        
+        city,state,population,land area
+        seattle,WA,652405,83.9
+        new york,NY,8405837,302.6
+        boston,MA,645966,48.3
+        kansas city,MO,467007,315.0
+      </pre>
     </div>
-    <div id='dzSize'>
-      - and less than 10kB
+   <div id="catsInst">
+     <h1>2. Choose rankable criteria</h1>
+     <h2>which criteria do you wish to include in rankings?</h2>
+     <h2> - ie. don't pick non-numeric fields</h2>
+     <h2> - nor any non-rankable identifiers</h2>
+   </div>
+   <div id="maxisInst">
+      <h1>3. Minimise or Maximise</h1>
+      <h2>default is that low numbers are better</h2>
+      <h2> - select fields where high values are good</h2>
     </div>
-    or choose a data file from your computer
-    <span id="browse">
-      <!-- <input type="file" id='browseFile' onclick=gotFile()> -->
-      <input type="file" id='browseFile' 
-        accept=".csv, text/csv" onchange=gotFile(this.files[0])>
-    </span>
-    or use one of these
-    <div id="dzFiles"></div>
- </div>
+    <div id="idInst">
+        <h1>4. Choose an ID field</h1>
+        <h2> - used to identify candidates</h2>
+        <h2> - eg. name or ID field</h2>
+    </div>
+    <div id="vizInst">
+      <h1>5. Finally, choose a visualisation type</h1>
+      <h2> - include little graphics</h2>
+      <h2> - and describe/explain them?</h2>
+    </div>
+
+  </div>
  
- <div id='critBox' class='floater invizbl wide'>
-   <!-- select rankable criteria using the table below -->
- </div>
-    
  <div id='chooseViz' class='floater invizbl wide'>
  </div>
     

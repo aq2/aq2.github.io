@@ -124,6 +124,54 @@ input[type="checkbox"], input[type="radio"] {
   }
 }
 
-input[type='file']
-  border 1px $green solid
-  margin 6px 0 24px 0
+// input[type='file']
+//     border 1px $green solid
+//     margin 6px 0 24px 0
+//     width: 0.1px;
+// 	  height: 0.1px;
+// 	  opacity: 0;
+// 	  overflow: hidden;
+// 	  position: absolute;
+// 	  z-index: -1;
+
+// input[type='file'] + label
+//       font-size: 1.25em;
+//       font-weight: 700;
+//       color: white;
+//       background-color: black;
+//       display: inline-block;
+
+// input[type='file']:focus + label,
+// input[type='file'] + label:hover {
+//     background-color: red;
+// }
+
+
+input[type='file'] {
+	width: 0.1px;
+	height: 0.1px;
+	opacity: 0;
+	overflow: hidden;
+	position: absolute;
+	z-index: -1;
+}
+
+
+input[type='file'] + label {
+    font-size: 1.25em;
+    font-weight: 700;
+    color: #666;
+    background-color: $darker
+    display: inline-block;
+    cursor: pointer;
+    // border 2px solid $lighter
+    padding 8px
+    border-radius 5px
+    width 100px
+}
+
+input[type='file']:focus + label,
+input[type='file'] + label:hover {
+    background-color: $dark;
+    border 2px solid $green
+}

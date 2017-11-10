@@ -102,8 +102,28 @@ input[type="radio"]:checked + label:hover span:before {
   transition: width 80ms ease 50ms;
 }
 input[type='file'] {
-  border: 1px #9ab446 solid;
-  margin: 6px 0 24px 0;
+  width: 0.1px;
+  height: 0.1px;
+  opacity: 0;
+  overflow: hidden;
+  position: absolute;
+  z-index: -1;
+}
+input[type='file'] + label {
+  font-size: 1.25em;
+  font-weight: 700;
+  color: #666;
+  background-color: #161c1f;
+  display: inline-block;
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 5px;
+  width: 100px;
+}
+input[type='file']:focus + label,
+input[type='file'] + label:hover {
+  background-color: #1d262a;
+  border: 2px solid #9ab446;
 }
 #exTable {
   color: #080b0d;
@@ -135,17 +155,49 @@ html {
   padding: 0;
 }
 body {
-  color: #9a9;
+  color: #999;
   background: #242f34;
   display: flex;
   font-family: Helvetica, Arial, sans-serif;
+  font-size: 16px;
 }
 aside {
   width: 150px;
   background: #343f44;
+  text-align: center;
+}
+aside div {
+  padding: 0px 10px;
+}
+#dfile {
+  width: 100px;
+  margin: 0 auto;
+}
+.greenborder {
+  border: 2px solid #9ab446;
+}
+.flashborder {
+  border: 2px solid #698997;
+}
+.darkborder {
+  border: 2px solid #0e1315;
+}
+/* Flash class and keyframe animation */
+.flashit {
+  color: #9ab446;
+  animation: flash linear 2s infinite;
+  font-size: 24px;
+}
+.throbit {
+  border: 2px solid #9ab446;
+  animation: throb linear 2s infinite;
+}
+.raised {
+  padding-bottom: 16px;
 }
 h1 {
-  margin: 0;
+  font-size: 3rem;
+  margin: 10px 0;
 }
 #dz,
 #critBox,
@@ -165,10 +217,6 @@ transition border-radius 2s ease 1.5s {
 }
 #dz #dzSize {
   margin-bottom: 24px;
-}
-span {
-  transition: 2s;
-  border-radius: 5px;
 }
 .floater {
   float: left;
@@ -199,7 +247,6 @@ span {
 .widest {
   width: 600px;
   border-radius: 0;
-  border: 5px solid #9ab446;
   min-height: 40px;
   text-align: center;
 }
@@ -246,4 +293,92 @@ transition margin 2s easeOut,
 transition margin 2s easeOut .slider,
 .tooltip .slider {
   font-size: 0px;
+}
+@-moz-keyframes flash {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.2;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+@-webkit-keyframes flash {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.2;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+@-o-keyframes flash {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.2;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+@keyframes flash {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.2;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+@-moz-keyframes throb {
+  0% {
+    border-color: #9ab446;
+  }
+  50% {
+    border-color: #1d262a;
+  }
+  100% {
+    border-color: #9ab446;
+  }
+}
+@-webkit-keyframes throb {
+  0% {
+    border-color: #9ab446;
+  }
+  50% {
+    border-color: #1d262a;
+  }
+  100% {
+    border-color: #9ab446;
+  }
+}
+@-o-keyframes throb {
+  0% {
+    border-color: #9ab446;
+  }
+  50% {
+    border-color: #1d262a;
+  }
+  100% {
+    border-color: #9ab446;
+  }
+}
+@keyframes throb {
+  0% {
+    border-color: #9ab446;
+  }
+  50% {
+    border-color: #1d262a;
+  }
+  100% {
+    border-color: #9ab446;
+  }
 }

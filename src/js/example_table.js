@@ -13,7 +13,7 @@ function makeExampleTableHtml(data) {
       // add second and third rows for examples
       exCandidates = [exampleData[1].split(','), exampleData[2].split(',')]
       
-  G_D.catData = {cats: categories, rankables: [], maxis: [], idCat: -1, iDn: ''}
+  G_D.catData = {cats: categories, rankables: [], maxis: [], alphas: [], idCat: -1, iDn: ''}
 
   // show each category
   for (c of categories) {
@@ -26,30 +26,27 @@ function makeExampleTableHtml(data) {
   for (c of exCandidates) {    
     myHtml += '<tr class="cand"><td>example data</td>'
     for (val of c) {
-      if (isNaN(Number(val))) {
-        G_D.alphaField = i
-      }
+      // if (isNaN(Number(val))) {
+      //   G_D.catData.alphas.push(i) // todo - don't work?
+      // }
       myHtml += '<td>' + val + '</td>'
     }
     i++
     myHtml += '<th></th></tr>'
   }
 
-  // show rankables row
+  // show rankables row  todo don't include alpha fields
   myHtml += "<tr id='measRow'><td>select rankable criteria</td>"
   for (c in categories) {
-    myHtml += "<td><input type='checkbox' name='cat" + c + "' id='cat" + c + "'>"
-    myHtml += "<label for='cat" + c + "'><span> </span></label></td>"
-  }
+      myHtml += "<td><input type='checkbox' name='cat" + c + "' id='cat" + c + "'>"
+      myHtml += "<label for='cat" + c + "'><span> </span></label></td>"
+    }
+  
   myHtml += "<td id='catBtnPos'></td></tr>"
 
   // make other rows, empty for now
   myHtml += "<tr id='minmaxRow'></tr>"
   myHtml += "<tr id='idRow'></tr>"
-  // for instructions and error
-  myHtml += "<tr><td colspan='" + (c+2) +"' id='outputCell' class='green'>"
-  myHtml += "select categories to rank by, need at least two - don't select names etc!"
-  myHtml += "</td></tr>"
 
   return myHtml
 }
@@ -84,14 +81,17 @@ function getMaxis() {
       length = G_D.catData.cats.length,
       html = '<td>high value is better</td>'
 
+  $('#catsInst').hide()
+  $('#maxisInst').show()
+    .position(180, 65)
+    
   // for each measurable, add checkbox
   for (i; i<length; i++) {
     html += "<td>"
     if (G_D.catData.rankables.indexOf(i) != -1) {
       html += "<input type='checkbox' id='max" + i + "'>"
       html += "<label for='max" + i + "'><span> </span></label>"
-    
-    } 
+  } 
     html += "</td>"
   }
   html += "<td id='minmaxBtnPos'></td></tr>"
@@ -99,8 +99,6 @@ function getMaxis() {
   select('#minmaxRow')
     .html(html)
     .class('light')
-
-  select('#outputCell').html('default is lower values are better')
 
   makeOKButton('#minmaxBtnPos', getID)
 }
@@ -111,13 +109,18 @@ function getID() {
       length = G_D.catData.cats.length,
       html = "<td>select one id field</td>"
 
-  select('#minmaxRow').class('dark')
+  $('#maxisInst').hide()
+  $('#idInst').show()
+    .position(180, 65)
 
+  select('#minmaxRow').class('dark')
   select('#idRow').class('light')
 
   // for each category max checkbox, add to maxis[] if checked, and build iD row
   for (i; i<length; i++) {
-    html += "<td><input type='radio' name='iD' value='" + i + "' id=radio" + i + ">"
+    html += "<td><input type='radio' name='iD' value='" + i + "' id=radio" + i 
+    // onchange yuck todo add proper event handler
+    html += " onchange=makeData(this.value)>"
     html += "<label for='radio" + i + "'><span> </span></label>"
       html += "</td>"
     if (G_D.catData.rankables.indexOf(i) != -1) {
@@ -127,22 +130,10 @@ function getID() {
     }
   }
 
-  html += "<td id='idBtnPos'></td></tr>"
-
   select('#idRow').html(html)
-
-  // check alphafield radio button - choose alpha by default
-  // todo yuck
-  document.getElementsByName("iD")[G_D.alphaField].checked = true
-  
-  select('#outputCell')
-    .html('choose a category to use as identifier - eg name')
-
-  makeOKButton('#idBtnPos', makeData) // !!
 }
 
-
-function makeData() {
+function makeData(the1) {
   let numb,
       prop,
       i = 1,
@@ -151,13 +142,11 @@ function makeData() {
       propname,
       candidate = {},
       someData = G_D.rawData.split('\n'),
-      len = someData.length,
-      the1 = document.querySelector('input[name="iD"]:checked').value
-  
+      len = someData.length
+    
   G_D.catData.idCat = the1
   G_D.catData.iDn = G_D.catData.cats[the1]
-
-  
+ 
   // now make data table - rawData is still one raw big string
   
   // todo fugly hacky loops going on in here
@@ -197,24 +186,23 @@ function getViz() {
   // rollup table
   select('#exTableDiv')
   .style('opacity', '0')
+  .hide()
 
-  select('#critBox')
-    .html('criteria')
-    .removeClass('wide')
-    .addClass('narrow')
+  $('#idInst').hide()
+  $('#vizInst').show()
+    .position(180, 65)
 
   select('#chooseViz')
     .removeClass('invizbl')
     .addClass('vizbl')
     .html(html)
+    .position(200, 300)
   
   for (viz of G_D.vizTypes) {
     createButton(viz)
       .mousePressed(getButton(viz))
-      .parent('#chooseViz') // qq
+      .parent('#chooseViz')
   }
-
-
 }
 
 function getButton(viz) {

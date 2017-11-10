@@ -1,4 +1,6 @@
-
+function $(id) {
+  return select(id)
+}
 
 // todo need to saveall - data.  time for mega global object?
 // 
