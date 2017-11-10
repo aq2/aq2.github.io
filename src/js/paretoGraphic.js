@@ -105,7 +105,7 @@ function drawPareto() {
   // may as well stick them in candyRows[]
 
   // // for each front! qq
-  for (f=0; f<nFronts; f++) {
+  for (f=0; f<1; f++) {
     peers = fronts[f]
     candyFronts[f] = new CandyFront(peers, f, f*frontH)
   }

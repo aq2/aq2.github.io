@@ -196,8 +196,11 @@ function getViz() {
 
   // rollup table
   select('#exTableDiv')
-  .style('opacity', '0')
+  // .style('opacity', '0')
   .hide()
+
+  $('#instruct')
+    .hide()
 
   $('#idInst').hide()
   $('#vizInst').show()

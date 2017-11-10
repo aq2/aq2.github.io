@@ -13,7 +13,7 @@ function CandyFront(peers, paretoId, y) {
   this.candyRows = []
   this.peersL = peers.length
 
-  let canvasW = windowWidth-50   // magic
+  let canvasW = windowWidth-200   // magic
   let minSpacing = 10  // min candy spacing - don't want them too squeezed up
   let candidates = G_D.candidates
   let p, pId, peer, candy
@@ -26,7 +26,7 @@ function CandyFront(peers, paretoId, y) {
   let rowDiv = createDiv('')
                 .id('row' + rowsSoFar)
                 .parent('#paretoDiv')
-                .class('slider')
+                .addClass('slider')
   
        
 
@@ -40,11 +40,11 @@ function CandyFront(peers, paretoId, y) {
   console.log('wSF', widthSoFar)
 
 
-  // if (widthSoFar < canvasW) {
-  //   // then it's only one row    
-  //   let margin = calcMargin(minSpacing, canvasW)
-  //   changeWidth(margin)
-  // }
+  if (widthSoFar < canvasW) {
+    // then it's only one row    
+    let margin = calcMargin(minSpacing, canvasW)
+    changeWidth(margin)
+  }
 
 }
 
