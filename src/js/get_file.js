@@ -5,38 +5,6 @@ let G_D = {
     vizTypes: ['pareto', 'parallel']
 }
 
-let a = []
-let done = false
-let b = 'foo'
-let che = false
-let pressed = false
-
-// function preload() {
-//   showBoxes()
-//   let myButt = createButton('ok')
-//                 .mousePressed(checkA)
-  
-//   // while (checkA() == false) {
-//   //   // do nuffin
-//   // }
-//   // console.log('a', a)
-  
-//   // while (checkA != false) {
-//   //   console.log('a', a)
-//   // }
-
-//   if (che) {
-//     console.log('foo')    
-//   }
-// }
-
-// function setup() {
-
-// }
-
-
-
-
 // sets up html page, shows dropzone
 function setup() {   // eslint-disable-line
    $('#cats')
